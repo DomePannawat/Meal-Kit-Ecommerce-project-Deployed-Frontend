@@ -1,6 +1,7 @@
 import React from "react";
 
 const Footer = () => {
+  
   return (
     <div className="flex flex-col min-h-screen">
       <footer className="bg-blue-900 text-white py-8 mt-auto">
@@ -81,3 +82,4 @@ const Footer = () => {
 
 
 export default Footer;
+
