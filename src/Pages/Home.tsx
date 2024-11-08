@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {Link} from 'react-router-dom';
 const Home = () => {
 
@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <div className="p-8">
-      <div className="flex gap-x-64 pl-64 bg-blue-800 text-white p-2 text-3xl ">
+      <div className="flex gap-x-64 pl-64 bg-blue-800 text-white p-2 text-3xl j">
         <h1>Become a Home Chef!</h1>
         <h1>There's always something new and exciting to cook.</h1>
       </div>
