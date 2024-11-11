@@ -1,7 +1,6 @@
-
-import {Link} from 'react-router-dom';
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 const Home = () => {
-
   const products = [
     {
       id: 1,
@@ -54,27 +53,37 @@ const Home = () => {
   ];
 
   return (
-    <div className="p-8">
+    <div className="min-h-screen flex flex-col justify-between">
       <div className="flex gap-x-64 pl-64 bg-blue-800 text-white p-2 text-3xl j">
         <h1>Become a Home Chef!</h1>
         <h1>There's always something new and exciting to cook.</h1>
       </div>
       <div className="flex w-full">
-  <h1 className="w-1/2  flex items-center justify-center text-blue-900 text-4xl text-left bg-blue-200">Easy meal kits. <br />Quality ingredients. <br />Delivered to your door.</h1>
-  <img 
-    src="src/images/food7.jpg" 
-    alt="Lead Image" 
-    className="w-3/4 h-[300px] object-cover" 
-  />
-</div>
-      <section className="flex mt-11 ">
-      <div className="flex justify-center mb-8 mx-auto">
-        <div className="text-center">
-              <h2 className="text-4xl text-blue-900 font-bold mb-8">Meal Kits <br /> Featured</h2>
-              <img src="src/images/Delicious.png" alt="Delicious Sign" className="w-40 h-30 object-cover mx-auto" />
-        </div>
+        <h1 className="w-1/2  flex items-center justify-center text-blue-900 text-4xl text-left bg-blue-200">
+          Easy meal kits. <br />
+          Quality ingredients. <br />
+          Delivered to your door.
+        </h1>
+        <img
+          src="src/images/food7.jpg"
+          alt="Lead Image"
+          className="w-3/4 h-[300px] object-cover"
+        />
       </div>
-        
+      <section className="flex mt-11 ">
+        <div className="flex justify-center mb-8 mx-auto">
+          <div className="text-center">
+            <h2 className="text-4xl text-blue-900 font-bold mb-8">
+              Meal Kits <br /> Featured
+            </h2>
+            <img
+              src="src/images/Delicious.png"
+              alt="Delicious Sign"
+              className="w-40 h-30 object-cover mx-auto"
+            />
+          </div>
+        </div>
+
         <div className="grid grid-cols-3 grid-rows-2 gap-4 mx-autoin-w-7xl justify-items-center mx-auto">
           {products.map((product) => (
             <div
@@ -93,63 +102,69 @@ const Home = () => {
               <div className="p-4">
                 <h2 className="text-xl font-semibold">{product.category}</h2>
                 <p className="text-lg mt-2">{product.name}</p>
-                <p className="text-sm text-gray-600 mt-1">Time to cook: {product.cookTime}</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Time to cook: {product.cookTime}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </section>
       <section>
-  <div>
-    <h1 className="text-3xl font-bold mb-8 mt-8">Shop by Category</h1>
-    
-    <div className="flex space-x-4">
-     
-      <div className="text-center flex flex-col items-center min-w-[152px]  ">
-        <Link to="">
-          <h3 className="text-lg font-semibold">Meal Kits</h3><br />
-          <div className="flex justify-center">
-            <img 
-              src="src/images/food7.jpg" 
-              alt="Meal Kits" 
-              className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
-            />
-          </div>
-        </Link>
-      </div>
+        <div>
+          <h1 className="text-3xl font-bold mb-8 mt-8">Shop by Category</h1>
 
- 
-      <div className="text-center flex flex-col items-center min-w-[152px] ">
-        <Link to="">
-          <h3 className="text-lg font-semibold text-center">Wellness Meal Kits</h3><br />
-          <div className="flex justify-center"> 
-            <img 
-              src="src/images/food7.jpg" 
-              alt="Wellness Meal Kits" 
-              className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
-            />
-          </div>
-        </Link>
-      </div>
+          <div className="flex space-x-4">
+            <div className="text-center flex flex-col items-center min-w-[152px]  ">
+              <Link to="">
+                <h3 className="text-lg font-semibold">Meal Kits</h3>
+                <br />
+                <div className="flex justify-center">
+                  <img
+                    src="src/images/food7.jpg"
+                    alt="Meal Kits"
+                    className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
+                  />
+                </div>
+              </Link>
+            </div>
 
-      
-      <div className="text-center flex flex-col items-center min-w-[152px] ">
-        <Link to="">
-          <h3 className="text-lg font-semibold text-center">Prepared & Ready</h3><br />
-          <div className="flex justify-center"> 
-            <img 
-              src="src/images/food7.jpg" 
-              alt="Prepared & Ready" 
-              className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
-            />
+            <div className="text-center flex flex-col items-center min-w-[152px] ">
+              <Link to="">
+                <h3 className="text-lg font-semibold text-center">
+                  Wellness Meal Kits
+                </h3>
+                <br />
+                <div className="flex justify-center">
+                  <img
+                    src="src/images/food7.jpg"
+                    alt="Wellness Meal Kits"
+                    className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
+                  />
+                </div>
+              </Link>
+            </div>
+
+            <div className="text-center flex flex-col items-center min-w-[152px] ">
+              <Link to="">
+                <h3 className="text-lg font-semibold text-center">
+                  Prepared & Ready
+                </h3>
+                <br />
+                <div className="flex justify-center">
+                  <img
+                    src="src/images/food7.jpg"
+                    alt="Prepared & Ready"
+                    className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
+                  />
+                </div>
+              </Link>
+            </div>
           </div>
-        </Link>
-      </div>
+        </div>
+      </section>
+      <Footer />
     </div>
-  </div>
-</section>
-    </div>
-   
   );
 };
 
