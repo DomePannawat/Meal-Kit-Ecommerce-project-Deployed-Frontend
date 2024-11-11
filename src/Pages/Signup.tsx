@@ -1,8 +1,8 @@
 
-
+import Footer from "../components/Footer"
 const Signup = () => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col justify-between">
       <div className='flex justify-center mt-10 font-bold text-3xl'>
         <h1>Create Your Account!</h1>
       </div>
@@ -34,7 +34,9 @@ const Signup = () => {
           </button>
         </form>
       </div>
-    </>
+      <Footer />
+    </div>
+    
   )
 }
 
