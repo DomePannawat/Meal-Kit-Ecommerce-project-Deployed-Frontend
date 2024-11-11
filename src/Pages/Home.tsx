@@ -4,7 +4,7 @@ const Home = () => {
   const products = [
     {
       id: 1,
-      image: "src/images/food6.png",
+      image: "/food6.png",
       category: "Dinner",
       name: "Spaghetti Carbonara",
       cookTime: "20 mins",
@@ -12,7 +12,7 @@ const Home = () => {
     },
     {
       id: 2,
-      image: "src/images/food1.png",
+      image: "/food1.png",
       category: "Lunch",
       name: "Grilled Chicken Salad",
       cookTime: "15 mins",
@@ -20,7 +20,7 @@ const Home = () => {
     },
     {
       id: 3,
-      image: "src/images/food2.png",
+      image: "/food2.png",
       category: "Breakfast",
       name: "Pancmt-8 akes",
       cookTime: "10 mins",
@@ -28,7 +28,7 @@ const Home = () => {
     },
     {
       id: 4,
-      image: "src/images/food3.png",
+      image: "/food3.png",
       category: "Dinner",
       name: "Beef Stir Fry",
       cookTime: "25 mins",
@@ -36,7 +36,7 @@ const Home = () => {
     },
     {
       id: 5,
-      image: "src/images/food4.png",
+      image: "/food4.png",
       category: "Snack",
       name: "Smoothie Bowl",
       cookTime: "5 mins",
@@ -44,7 +44,7 @@ const Home = () => {
     },
     {
       id: 6,
-      image: "src/images/food5.png",
+      image: "/food5.png",
       category: "Lunch",
       name: "Chicken Tacos",
       cookTime: "20 mins",
@@ -65,7 +65,7 @@ const Home = () => {
           Delivered to your door.
         </h1>
         <img
-          src="src/images/food7.jpg"
+          src="/food7.jpg"
           alt="Lead Image"
           className="w-3/4 h-[300px] object-cover"
         />
@@ -121,7 +121,7 @@ const Home = () => {
                 <br />
                 <div className="flex justify-center">
                   <img
-                    src="src/images/food7.jpg"
+                    src="/food7.jpg"
                     alt="Meal Kits"
                     className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
                   />
@@ -137,7 +137,7 @@ const Home = () => {
                 <br />
                 <div className="flex justify-center">
                   <img
-                    src="src/images/food7.jpg"
+                    src="/food7.jpg"
                     alt="Wellness Meal Kits"
                     className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
                   />
@@ -153,7 +153,7 @@ const Home = () => {
                 <br />
                 <div className="flex justify-center">
                   <img
-                    src="src/images/food7.jpg"
+                    src="/food7.jpg"
                     alt="Prepared & Ready"
                     className="w-[100px] h-[100px] object-cover rounded-lg shadow-lg"
                   />
