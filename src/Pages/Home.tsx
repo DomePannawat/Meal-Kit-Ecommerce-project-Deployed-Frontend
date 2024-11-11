@@ -22,7 +22,7 @@ const Home = () => {
       id: 3,
       image: "src/images/food2.png",
       category: "Breakfast",
-      name: "Pancakes",
+      name: "Pancmt-8 akes",
       cookTime: "10 mins",
       link: "",
     },
@@ -53,7 +53,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between ">
       <div className="flex gap-x-64 pl-64 bg-blue-800 text-white p-2 text-3xl j">
         <h1>Become a Home Chef!</h1>
         <h1>There's always something new and exciting to cook.</h1>
@@ -77,7 +77,7 @@ const Home = () => {
               Meal Kits <br /> Featured
             </h2>
             <img
-              src="src/images/Delicious.png"
+              src="/Delicious.png"
               alt="Delicious Sign"
               className="w-40 h-30 object-cover mx-auto"
             />
@@ -111,10 +111,10 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <div>
-          <h1 className="text-3xl font-bold mb-8 mt-8">Shop by Category</h1>
+        <div className="ml-12 mb-12">
+          <h1 className="text-3xl font-bold mb-8 mt-8 ">Shop by Category</h1>
 
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 ">
             <div className="text-center flex flex-col items-center min-w-[152px]  ">
               <Link to="">
                 <h3 className="text-lg font-semibold">Meal Kits</h3>
