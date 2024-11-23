@@ -10,6 +10,7 @@ import Signup from "../src/Pages/Signup";
 import { MenuProvider } from '../src/Context/MenuContext';
 import { CartProvider } from "../src/Context/CartContext"; 
 import ProductDetail from '../src/Pages/ProductDetail/ProductDetail';
+import OrderConfirmation from "../src/Pages/OrderConfirmation";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/delivery" element={<Delivery />} />
+          <Route path="/orderConfirmation" element={<OrderConfirmation />} />
         </Routes>
         </MenuProvider>
         </CartProvider>

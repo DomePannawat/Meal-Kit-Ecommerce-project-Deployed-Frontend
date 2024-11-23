@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMenuContext } from "../../Context/MenuContext";
 import { useCartContext } from "../../Context/CartContext";
+import { productTranslations } from '../../components/MenuPage/productTranslations';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { menuItems } = useMenuContext();
   const { addToCart } = useCartContext();
   const [productData, setProductData] = useState<any>(null);
-  const [quantity, setQuantity] = useState<number>(1); // สถานะสำหรับจำนวนที่เลือก
+  const [quantity, setQuantity] = useState<number>(1); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const ProductDetail: React.FC = () => {
 
   const handleAddToCart = () => {
     // ส่งข้อมูลสินค้าและจำนวนแยกกันไปยัง addToCart
-    addToCart(productData, quantity); // ส่งทั้ง item และ quantity
+    addToCart(productData, quantity); 
   };
 
   return (
@@ -51,18 +52,24 @@ const ProductDetail: React.FC = () => {
         {/* ข้อมูลสินค้า */}
         <div className="flex-1 space-y-4">
           <h1 className="text-4xl font-bold text-gray-800">
-            {productData.name}
+          {productTranslations[productData.name] || productData.name}
           </h1>
           <p className="text-2xl font-semibold text-green-600">
             {productData.price} บาท
           </p>
-          <p className="text-gray-600">{productData.description}</p>
-          
-          <p className="text-gray-900 text-lg font-bold" >รายละเอียดของสินค้า</p>
-          <p className="text-gray-600">วิธีเก็บรักษา : {productData.ingredients}</p>
-          <p className="text-gray-600">วิธีเก็บรักษา : {productData.storageInstructions}</p>
-          <p className="text-gray-600">คุณค่าทางโภชนาการ : {productData.nutrition}</p>
-          <p className="text-gray-600">ขนาด : {productData.size}</p>
+          <p className="text-gray-700">{productData.description}</p>
+
+          <p className="text-gray-900 text-lg font-bold">รายละเอียดของสินค้า</p>
+          <p className="text-gray-700">
+            <b>วัตถุดิบ :</b> {productData.ingredients}
+          </p>
+          <p className="text-gray-700">
+          <b>วิธีเก็บรักษา :</b> {productData.storageInstructions}
+          </p>
+          <p className="text-gray-700">
+          <b>คุณค่าทางโภชนาการ :</b> {productData.nutrition}
+          </p>
+          <p className="text-gray-700"><b>ขนาด :</b> {productData.size}</p>
 
           {/* การเลือกจำนวนสินค้า */}
           <div className="flex items-center space-x-4 mt-4">
@@ -72,14 +79,28 @@ const ProductDetail: React.FC = () => {
             >
               จำนวน:
             </label>
-            <input
-              type="number"
-              id="quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-              min="1"
-              className="w-20 text-center border border-gray-300 rounded-lg py-2 px-4"
-            />
+            {/* ปุ่มลด */}
+            <button
+              onClick={() =>
+                setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1))
+              }
+              className="w-10 h-10 flex justify-center items-center bg-gray-200 text-lg font-semibold rounded-lg hover:bg-gray-300 focus:outline-none"
+            >
+              -
+            </button>
+
+            {/* จำนวนสินค้า */}
+            <span className="w-20 text-center border border-gray-300 rounded-lg py-2 px-4">
+              {quantity}
+            </span>
+
+            {/* ปุ่มเพิ่ม */}
+            <button
+              onClick={() => setQuantity((prevQuantity) => prevQuantity + 1)}
+              className="w-10 h-10 flex justify-center items-center bg-gray-200 text-lg font-semibold rounded-lg hover:bg-gray-300 focus:outline-none"
+            >
+              +
+            </button>
           </div>
 
           <button
@@ -97,10 +118,12 @@ const ProductDetail: React.FC = () => {
         <h3 className="text-2xl font-semibold text-gray-800 mb-4">
           ข้อมูลเพิ่มเติม
         </h3>
-        <p className="text-gray-600 mb-6">
-          {productData.longDescription || "รายละเอียดเพิ่มเติมยังไม่มี"}
-        </p>
 
+        {/* ข้อมูลเพิ่มเติม */}
+        <div
+          className="text-gray-600 mb-6"
+          dangerouslySetInnerHTML={{ __html: productData.longDescription }}
+        />
         {/* ตัวอย่างรีวิว */}
         <div className="mt-8 mb-12">
           <h3 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -114,18 +137,18 @@ const ProductDetail: React.FC = () => {
             </div>
 
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-              <p className="font-semibold">ผู้ใช้: John Doe</p>
-              <p>“สินค้านี้ยอดเยี่ยมมาก! คุณภาพดีและรสชาติถูกปาก”</p>
+              <p className="font-semibold">ผู้ใช้: Michael Lee</p>
+              <p>“ประทับใจในรสชาติที่กลมกล่อมของสินค้าชิ้นนี้มากครับ”</p>
             </div>
 
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-              <p className="font-semibold">ผู้ใช้: John Doe</p>
-              <p>“สินค้านี้ยอดเยี่ยมมาก! คุณภาพดีและรสชาติถูกปาก”</p>
+              <p className="font-semibold">ผู้ใช้: Emily Chen</p>
+              <p>“สินค้าคุณภาพดีเกินคาด! รสชาติเข้ากันได้ดีกับทุกอย่างเลยค่ะ”</p>
             </div>
 
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-              <p className="font-semibold">ผู้ใช้: John Doe</p>
-              <p>“สินค้านี้ยอดเยี่ยมมาก! คุณภาพดีและรสชาติถูกปาก”</p>
+              <p className="font-semibold">ผู้ใช้: John Smith</p>
+              <p>“สินค้าเมนูนี้ดีเลิศมาก หอมอร่อย ถูกใจสุด ๆ”</p>
             </div>
           </div>
         </div>
