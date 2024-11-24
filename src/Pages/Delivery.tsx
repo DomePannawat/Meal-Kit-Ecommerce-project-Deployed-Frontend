@@ -1,9 +1,245 @@
-
+import React, { useState } from "react";
+import { useCartContext } from "../Context/CartContext";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Delivery = () => {
-  return (
-    <div></div>
-  )
-}
+  const { cartItems, updateUserInfo } = useCartContext();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+  const [paymentMethod, setPaymentMethod] = useState(""); 
+  const navigate = useNavigate();
 
-export default Delivery
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPaymentMethod(e.target.value); 
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const name = `${formData.firstName} ${formData.lastName}`;
+    const address = `${formData.street}, ${formData.city}, ${formData.state}, ${formData.zipcode}, ${formData.country}`;
+
+    updateUserInfo(name, address); 
+    console.log("Form data submitted:", formData, "Payment Method:", paymentMethod);
+
+    
+    navigate("/orderConfirmation"); 
+  };
+
+  // เช็คว่า formData ทุกตัวถูกกรอกครบหรือไม่ และมีการเลือกวิธีการชำระเงิน
+  const isFormComplete = Object.values(formData).every((value) => value !== "");
+  const isPaymentSelected = paymentMethod !== ""; 
+
+  return (
+    <div>
+    <div className="container mx-auto p-6 mb-32">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Delivery Information */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-2">
+            Delivery Information
+          </h2>
+          <form onSubmit={handleSubmit}>
+            {/* Name */}
+            <div className="flex gap-3 mb-4">
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="First name"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Last name"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+
+            {/* Email */}
+            <div className="mb-4">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="E-mail address"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+
+            {/* Address */}
+            <div className="mb-4">
+              <input
+                type="text"
+                name="street"
+                value={formData.street}
+                onChange={handleChange}
+                placeholder="Street"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+
+            {/* City & State */}
+            <div className="flex gap-3 mb-4">
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                placeholder="City"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+              <input
+                type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="State"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+
+            {/* Zipcode & Country */}
+            <div className="flex gap-3 mb-4">
+              <input
+                type="text"
+                name="zipcode"
+                value={formData.zipcode}
+                onChange={handleChange}
+                placeholder="Zipcode"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+              <input
+                type="text"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                placeholder="Country"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+
+            {/* Phone */}
+            <div className="mb-4">
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Phone"
+                className="border border-gray-300 rounded py-2 px-4 w-full"
+                required
+              />
+            </div>
+          </form>
+        </div>
+
+        {/* Cart Totals */}
+        <div>
+          <div className="w-full max-w-md bg-gray-100 p-6 rounded-md shadow-lg lg:mt-10 mx-auto">
+            <h2 className="text-xl font-bold mb-4 border-b pb-2">
+              Cart Totals
+            </h2>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span>{calculateTotalPrice().toFixed(2)} บาท</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Shipping Fee:</span>
+                <span>Free</span>
+              </div>
+              <div className="flex justify-between font-bold mb-4">
+                <span>Total:</span>
+                <span>{calculateTotalPrice().toFixed(2)} บาท</span>
+              </div>
+            </div>
+
+            {/* Payment Method */}
+            <h3 className="mt-6 text-lg font-semibold">Payment Method</h3>
+            <div className="flex items-center mt-4 gap-4">
+              <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="stripe"
+                    onChange={handlePaymentChange}
+                    className="mr-2"
+                  />
+                  <span>Visa and Mastercard</span>
+                </label>
+              </div>
+              <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="cod"
+                    onChange={handlePaymentChange}
+                    className="mr-2"
+                  />
+                  <span>Cash on Delivery</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className={`block w-full text-center bg-blue-500 text-white py-2 mt-6 rounded-lg hover:bg-blue-600 ${
+                !isFormComplete || !isPaymentSelected ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!isFormComplete || !isPaymentSelected} 
+              onClick={handleSubmit} 
+            >
+              Order Confirmation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Footer />
+    </div>
+  );
+};
+
+export default Delivery;
