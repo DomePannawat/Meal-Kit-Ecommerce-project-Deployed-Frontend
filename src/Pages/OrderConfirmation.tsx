@@ -42,7 +42,7 @@ const OrderConfirmation = () => {
               {productTranslations[item.name] || item.name}
                 </span>
               <span>
-                {item.quantity} x ${item.price.toFixed(2)}
+                {item.quantity} x {item.price.toFixed(2)} บาท
               </span>
             </li>
           ))}
