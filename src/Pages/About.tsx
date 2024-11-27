@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const About: React.FC = () => {
   return (
     <div className="about-container bg-gradient-to-br from-green-100 via-green-50 to-green-200 p-8 sm:p-12 md:p-20 rounded-lg shadow-lg">
@@ -21,12 +22,13 @@ const About: React.FC = () => {
 
       <section>
         <h2 className="text-2xl font-semibold text-center text-green-700 mb-6">ทำไมต้องเลือกเรา?</h2>
-        <ul className="list-disc list-inside space-y-4 text-left text-center text-gray-800 max-w-2xl mx-auto">
+        <ul className="list-disc list-inside space-y-4 text-center text-gray-800 max-w-2xl mx-auto">
           <li><strong>สะดวกสบาย</strong>: ประหยัดเวลาและแรงด้วยชุดอาหารพร้อมปรุง</li>
           <li><strong>หลากหลาย</strong>: เพลิดเพลินไปกับตัวเลือกเมนูอาหารไทย</li>
           <li><strong>คุณภาพ</strong>: ส่วนผสมสดใหม่และคุณภาพสูงที่เตรียมมาอย่างดี</li>
         </ul>
       </section>
+      
     </div>
   );
 };

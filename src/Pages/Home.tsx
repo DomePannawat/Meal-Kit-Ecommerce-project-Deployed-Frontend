@@ -7,15 +7,15 @@ import { productTranslations } from '../../src/components/MenuPage/productTransl
 const Home = () => {
   const { menuItems = [] } = useMenuContext();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationTriggered, setAnimationTriggered] = useState(false);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(menuItems.length / itemsPerPage);
   const [shuffledItems, setShuffledItems] = useState(menuItems);
 
   const shuffleMenuItems = () => {
-    const shuffled = [...menuItems].map(item => ({ ...item, random: Math.random() }))
+    const shuffled = [...menuItems]
+      .map(item => ({ ...item, random: Math.random() }))
       .sort((a, b) => a.random - b.random)
-      .map(item => { delete item.random; return item });
+      .map(({ random, ...rest }) => rest); 
     setShuffledItems(shuffled);
   };
 
@@ -24,18 +24,16 @@ const Home = () => {
   }, []);
 
   const displayedItems = shuffledItems.slice(currentIndex * itemsPerPage, currentIndex * itemsPerPage + itemsPerPage);
-
+  
   const handleNext = () => {
     if (currentIndex < totalPages - 1) {
       setCurrentIndex(currentIndex + 1);
-      setAnimationTriggered(true);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      setAnimationTriggered(true);
     }
   };
 
@@ -45,26 +43,23 @@ const Home = () => {
         <h1 className="font-bold">Become a Home Chef!</h1>
         <p>There's always something new and exciting to cook.</p>
       </div>
-
       <div className="flex flex-col lg:flex-row w-full p-6">
-        <h1 className="lg:w-1/2 text-blue-900 text-4xl text-left bg-blue-200 flex items-center justify-center mb-4 lg:mb-0 font-bold ">
-          Easy meal kits. <br />
-          Quality ingredients. <br />
-          Delivered to your door.
-        </h1>
+      <h1 className="lg:w-1/2 text-[#733028] text-2xl sm:text-3xl lg:text-4xl text-left bg-[#E3CFC7] flex items-center justify-center mb-4 lg:mb-0 font-bold p-4">
+  Easy meal kits. <br />
+  Quality ingredients. <br />
+  Delivered to your door.
+</h1>
         <img
-          src="/food7.jpg"
+          src="/Designer.jpeg"
           alt="Delicious Meal"
           className="w-full lg:w-3/4 h-[300px] object-cover "
         />
       </div>
-
       <section className="px-6 mt-11">
         <div className="text-center mb-8">
           <h2 className="text-4xl text-[#065621] font-bold mb-8">Featured Meal Kits</h2>
           <img src="/Delicious.png" alt="Delicious Sign" className="w-32 lg:w-40 h-auto mx-auto" />
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto">
           {displayedItems.map((product) => (
             <div key={product._id} className="bg-white rounded-lg shadow-lg overflow-hidden mx-2">
@@ -80,7 +75,6 @@ const Home = () => {
             </div>
           ))}
         </div>
-
         <div className="flex justify-center mt-6 mb-6 space-x-4">
           <button
             onClick={handlePrevious}
@@ -98,7 +92,6 @@ const Home = () => {
           </button>
         </div>
       </section>
-
       <Footer />
     </div>
   );
