@@ -119,7 +119,7 @@ const Navbar = () => {
 
               <li>
                 <NavLink
-                  to=""
+                  to="/about"
                   className="block py-2 px-3 md:p-0 hover:text-orange-500 text-gray-600"
                 >
                   ABOUT
@@ -128,7 +128,7 @@ const Navbar = () => {
 
               <li>
                 <NavLink
-                  to=""
+                  to="/contact"
                   className="block py-2 px-3 md:p-0 hover:text-orange-500 text-gray-600"
                 >
                   CONTACT
