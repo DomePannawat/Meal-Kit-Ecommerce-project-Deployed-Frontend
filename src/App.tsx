@@ -11,6 +11,8 @@ import { MenuProvider } from '../src/Context/MenuContext';
 import { CartProvider } from "../src/Context/CartContext"; 
 import ProductDetail from '../src/Pages/ProductDetail/ProductDetail';
 import OrderConfirmation from "../src/Pages/OrderConfirmation";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/delivery" element={<Delivery />} />
           <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />      
         </Routes>
         </MenuProvider>
         </CartProvider>
