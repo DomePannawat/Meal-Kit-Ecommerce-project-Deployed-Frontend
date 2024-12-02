@@ -1,9 +1,11 @@
 import Footer from "../../components/Footer";
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMenuContext } from "../../Context/MenuContext";
 import { useCartContext } from "../../Context/CartContext";
 import { productTranslations } from '../../components/MenuPage/productTranslations';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +13,6 @@ const ProductDetail: React.FC = () => {
   const { addToCart } = useCartContext();
   const [productData, setProductData] = useState<any>(null);
   const [quantity, setQuantity] = useState<number>(1); 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const item = menuItems.find((menuItem) => menuItem._id === id);
@@ -24,20 +25,23 @@ const ProductDetail: React.FC = () => {
     return <p className="text-center mt-10">กำลังโหลดข้อมูลสินค้า...</p>;
 
   const handleAddToCart = () => {
-    // ส่งข้อมูลสินค้าและจำนวนแยกกันไปยัง addToCart
-    addToCart(productData, quantity); 
+    addToCart(productData, quantity);
+    toast.success(`สินค้าถูกเพิ่มลงตะกร้าเรียบร้อย 🛒`, { 
+      position: "top-right", 
+      autoClose: 3000, 
+      closeOnClick: true, 
+      pauseOnHover: true, 
+    });
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between ">
+      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
+        <h1 className="font-medium typing-text">
+          There's always something new and exciting to cook.
+        </h1>
+      </div>
       <div className="container mx-auto p-6">
-        {/* ปุ่มย้อนกลับ */}
-        <button
-          onClick={() => navigate(-1)}
-          className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md mb-5"
-        >
-          ย้อนกลับ
-        </button>
       </div>
       <div className="flex flex-col md:flex-row gap-8 container mx-auto p-6">
         {/* ภาพสินค้า */}
@@ -154,6 +158,7 @@ const ProductDetail: React.FC = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer /> 
     </div>
   );
 };

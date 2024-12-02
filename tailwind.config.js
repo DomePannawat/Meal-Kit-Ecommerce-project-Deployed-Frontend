@@ -6,10 +6,8 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        'sky-light': '#b2ebf2',
-        'night-fall': '#324856',
-        'sage-mint' : '#a8bcba',
+      fontFamily: {
+        sans: ['Ubuntu', 'sans-serif'], 
       },
     },
   },

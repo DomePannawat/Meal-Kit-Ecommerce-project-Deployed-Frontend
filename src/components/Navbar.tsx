@@ -21,8 +21,8 @@ const Navbar = () => {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="/logo.png"
-              className="w-18 h-16 rounded-[100%] "
+              src="/logoFlavor.png"
+              className="w-20 h-20 rounded-[100%] "
               alt="Logo"
             />
           </NavLink>
@@ -38,7 +38,7 @@ const Navbar = () => {
                 />
                 {/* Display cart item count */}
                 {cartItemCount > 0 && (
-                  <div className="absolute top-6 right-6 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <div className="absolute top-7 right-7 bg-green-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItemCount}
                   </div>
                 )}

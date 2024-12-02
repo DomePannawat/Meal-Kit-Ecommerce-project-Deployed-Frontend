@@ -15,13 +15,19 @@ const OrderConfirmation = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div>
+      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
+        <h1 className="font-medium typing-text">
+        Thank you for using our shopping service..
+        </h1>
+      </div>
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-2xl mt-10 mb-10">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
         การสั่งซื้อเสร็จสมบูรณ์
       </h2>
 
       {/* ข้อมูลการสั่งซื้อ */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mb-6 p-4 bg-green-50 rounded-lg">
         <h3 className="text-xl font-semibold text-gray-700 mb-2">ข้อมูลการสั่งซื้อ</h3>
         <p className="text-gray-600 mb-1">
           <strong>ชื่อผู้ซื้อ:</strong> {userInfo.name}
@@ -33,7 +39,7 @@ const OrderConfirmation = () => {
 
       {/* รายการสินค้า */}
       
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mb-6 p-4 bg-green-50 rounded-lg">
         <h3 className="text-xl font-semibold text-gray-700 mb-2">รายการสินค้า</h3>
         <ul className="space-y-4">
           {cartItems.map((item) => (
@@ -50,7 +56,7 @@ const OrderConfirmation = () => {
       </div>
 
       {/* สรุปยอดเงิน */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+      <div className="mb-6 p-4 bg-green-50 rounded-lg">
         <h3 className="text-xl font-semibold text-gray-700 mb-2">สรุปยอดเงิน</h3>
         <p className="text-gray-600">
           <strong>ยอดรวม:</strong> {totalAmount.toFixed(2)} บาท
@@ -60,10 +66,11 @@ const OrderConfirmation = () => {
       {/* ปุ่มกลับไปหน้า Homepage */}
       <button
         onClick={handleGoHome}
-        className="w-full py-3 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-200"
+        className="w-full py-3 text-lg font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 transition duration-200"
       >
         กลับไปที่หน้า Homepage
       </button>
+    </div>
     </div>
   );
 };

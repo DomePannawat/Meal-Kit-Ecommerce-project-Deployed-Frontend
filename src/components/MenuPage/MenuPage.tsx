@@ -172,7 +172,7 @@ const MenuPage: React.FC = () => {
               <img src={item.image} alt={item.name} className="w-full h-32 object-cover rounded-md" />
               <h3 className="text-lg font-semibold mt-2">{productTranslations[item.name] || item.name}</h3>
               <p className="text-gray-600 mt-1">{item.description}</p>
-              <p className="text-blue-500 mt-2 font-bold">{item.price} บาท</p>
+              <p className="text-green-600 mt-2 font-bold">{item.price} บาท</p>
             </div>
           </Link>
         ))}

@@ -27,6 +27,11 @@ const CartPage: React.FC = () => {
 
   return (
     <div>
+      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
+        <h1 className="font-medium typing-text">
+          There's always something new and exciting to cook.
+        </h1>
+      </div>
     <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-10 mb-32">
       {/* รายการสินค้า */}
       <div>
@@ -38,7 +43,7 @@ const CartPage: React.FC = () => {
             <p className="text-xl text-gray-500">Your cart is empty.</p>
             <Link
               to="/menu"
-              className="mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+              className="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700"
             >
               Continue MENU
             </Link>
@@ -92,7 +97,6 @@ const CartPage: React.FC = () => {
                 {/* ปุ่มลบสินค้า */}
                 <button
                   onClick={() => removeFromCart(item._id)}
-                  className="text-red-600 hover:text-red-800"
                 >
                   🗑️
                 </button>
@@ -120,7 +124,7 @@ const CartPage: React.FC = () => {
           </div>
           <Link
             to="/delivery"
-            className="block text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+            className="block text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
           >
             PROCEED TO DELIVERY
           </Link>
