@@ -1,8 +1,15 @@
 import React from 'react';
+import Footer from "../components/Footer";
 
 const Contact: React.FC = () => {
   return (
-    <div className="flex flex-col items-center py-10 bg-gradient-to-r from-teal-100 via-gray-100 to-teal-50">
+    <div className="min-h-screen bg-gradient-to-r flex flex-col justify-between from-teal-100 via-gray-100 to-teal-50">
+      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl ">
+        <h1 className="font-medium typing-text">
+          There's always something new and exciting to cook.
+        </h1>
+      </div>
+    <div className="flex flex-col items-center py-10 bg-gradient-to-r ">
       
       {/* Contact Information */}
       <div className="max-w-3xl w-full px-6 bg-white rounded-lg shadow-xl p-8">
@@ -18,11 +25,11 @@ const Contact: React.FC = () => {
           <p className="text-lg text-gray-700 mb-2">
             <strong>Email:</strong>{' '}
             <a href="mailto:suur@hotmail.com" className="text-teal-500 hover:underline">
-              suur@hotmail.com
+            Quantum_C_S@gmail.com
             </a>
           </p>
           <p className="text-lg text-gray-700 mb-2">
-            <strong>Telephone:</strong> [Your Telephone Number]
+            <strong>Telephone:</strong> 089-999-9999
           </p>
         </div>
 
@@ -42,6 +49,8 @@ const Contact: React.FC = () => {
           ></iframe>
         </div>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 };

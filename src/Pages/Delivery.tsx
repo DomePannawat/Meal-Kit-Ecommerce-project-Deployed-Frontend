@@ -9,10 +9,8 @@ const Delivery = () => {
     firstName: "",
     lastName: "",
     email: "",
-    street: "",
-    city: "",
-    state: "",
-    zipcode: "",
+    address: "",
+    zipcode: "",  
     country: "",
     phone: "",
   });
@@ -42,7 +40,7 @@ const Delivery = () => {
     e.preventDefault();
     
     const name = `${formData.firstName} ${formData.lastName}`;
-    const address = `${formData.street}, ${formData.city}, ${formData.state}, ${formData.zipcode}, ${formData.country}`;
+    const address = `${formData.address}, ${formData.zipcode}, ${formData.country}`;
 
     updateUserInfo(name, address); 
     console.log("Form data submitted:", formData, "Payment Method:", paymentMethod);
@@ -57,7 +55,12 @@ const Delivery = () => {
 
   return (
     <div>
-    <div className="container mx-auto p-6 mb-32">
+      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
+        <h1 className="font-medium typing-text">
+          There's always something new and exciting to cook.
+        </h1>
+      </div>
+    <div className="container mx-auto p-6 mb-32 mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Delivery Information */}
         <div>
@@ -104,36 +107,15 @@ const Delivery = () => {
             <div className="mb-4">
               <input
                 type="text"
-                name="street"
-                value={formData.street}
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
-                placeholder="Street"
+                placeholder="Address"
                 className="border border-gray-300 rounded py-2 px-4 w-full"
                 required
               />
             </div>
 
-            {/* City & State */}
-            <div className="flex gap-3 mb-4">
-              <input
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                placeholder="City"
-                className="border border-gray-300 rounded py-2 px-4 w-full"
-                required
-              />
-              <input
-                type="text"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                placeholder="State"
-                className="border border-gray-300 rounded py-2 px-4 w-full"
-                required
-              />
-            </div>
 
             {/* Zipcode & Country */}
             <div className="flex gap-3 mb-4">
@@ -205,19 +187,19 @@ const Delivery = () => {
                     onChange={handlePaymentChange}
                     className="mr-2"
                   />
-                  <span>Visa and Mastercard</span>
+                  <span><img className="h-8 mx-4" src="/visa_master_logo.png"  /></span>
                 </label>
               </div>
-              <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md">
+              <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md ">
                 <label className="flex items-center">
                   <input
                     type="radio"
                     name="paymentMethod"
                     value="cod"
                     onChange={handlePaymentChange}
-                    className="mr-2"
+                    className="mr-2 "
                   />
-                  <span>Cash on Delivery</span>
+                  <span className="h-8 mx-4 text-center flex justify-center items-center">Cash on Delivery</span>
                 </label>
               </div>
             </div>
@@ -225,7 +207,7 @@ const Delivery = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className={`block w-full text-center bg-blue-500 text-white py-2 mt-6 rounded-lg hover:bg-blue-600 ${
+              className={`block w-full text-center bg-green-600 text-white py-2 mt-6 rounded-lg hover:bg-green-700 ${
                 !isFormComplete || !isPaymentSelected ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={!isFormComplete || !isPaymentSelected} 

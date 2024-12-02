@@ -1,6 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
 
-  
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.typing-text {
+  overflow: hidden;
+  border-right: 0.15em solid #065621;
+  white-space: nowrap;
+  animation: typing 5s steps(50) 0.5s forwards, blink 0.5s step-end infinite;
+}
+
+html {
+  scroll-behavior: smooth; 
+}
+
+body {
+  overflow: auto;
+  scrollbar-width: none; 
+}
+
+::-webkit-scrollbar {
+  display: none; 
+}
