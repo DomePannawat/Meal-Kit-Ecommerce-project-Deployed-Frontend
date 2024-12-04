@@ -3,28 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
-
-.typing-text {
-  overflow: hidden;
-  border-right: 0.15em solid #065621;
-  white-space: nowrap;
-  animation: typing 5s steps(50) 0.5s forwards, blink 0.5s step-end infinite;
-}
-
 html {
   scroll-behavior: smooth; 
 }
@@ -36,4 +14,50 @@ body {
 
 ::-webkit-scrollbar {
   display: none; 
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  z-index: 10;
+  width: 250px;
+}
+
+
+@media (max-width: 1024px) {
+  .menu-container {
+    flex-direction: column; 
+  }
+
+  .sidebar {
+    position: static; 
+    width: 100%; 
+  }
+}
+
+
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: column; 
+  }
+
+  .sidebar {
+    position: static; 
+    width: 100%; 
+    max-height: none; 
+  }
+
+  
+  .content {
+    padding: 0.5rem; 
+  }
 }

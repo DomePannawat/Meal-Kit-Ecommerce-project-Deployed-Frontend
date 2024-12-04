@@ -40,9 +40,9 @@ const Delivery = () => {
     e.preventDefault();
     
     const name = `${formData.firstName} ${formData.lastName}`;
-    const address = `${formData.address}, ${formData.zipcode}, ${formData.country}`;
+    const address = `${formData.address}, ${formData.zipcode}, ${formData.country} , ${formData.phone}`;
 
-    updateUserInfo(name, address); 
+    updateUserInfo(name, address,); 
     console.log("Form data submitted:", formData, "Payment Method:", paymentMethod);
 
     
