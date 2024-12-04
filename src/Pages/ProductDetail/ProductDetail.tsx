@@ -6,6 +6,7 @@ import { useCartContext } from "../../Context/CartContext";
 import { productTranslations } from '../../components/MenuPage/productTranslations';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
+import { motion } from "framer-motion";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,13 +35,26 @@ const ProductDetail: React.FC = () => {
     });
   };
 
-  return (
+  return ( 
     <div className="min-h-screen flex flex-col justify-between ">
-      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
-        <h1 className="font-medium typing-text">
-          There's always something new and exciting to cook.
-        </h1>
-      </div>
+      <div className="relative bg-[#065621] text-white py-3 overflow-hidden">
+          <motion.div
+            animate={{
+              x: ["-100%", "100%"],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="flex items-center gap-4 whitespace-nowrap text-xl md:text-2xl font-medium"
+          >
+            <span>🌟 There's always something new and exciting to cook</span>
+            <span>🍳 Discover the joy of cooking with us</span>
+            <span>🥘 Fresh ingredients, amazing flavors</span>
+            <span>👨‍🍳 Cook like a pro at home</span>
+          </motion.div>
+        </div>
       <div className="container mx-auto p-6">
       </div>
       <div className="flex flex-col md:flex-row gap-8 container mx-auto p-6">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCartContext } from "../Context/CartContext";
-import { NavLink } from "react-router-dom";
+import { NavLink , useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
   const { getCartItemCount } = useCartContext();
@@ -12,55 +13,71 @@ const Navbar = () => {
 
   const cartItemCount = getCartItemCount();
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    
+    console.log("Logout successfully");
+    navigate("/login");
+  };
+
   return (
     <div>
-      <nav className="bg-white border-gray-200">
-        <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="bg-white border-gray-200 ">
+        <div className="max-w-screen-2xl flex flex-wrap  items-center justify-between mx-auto p-4">
           <NavLink
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="/logoFlavor.png"
-              className="w-20 h-20 rounded-[100%] "
-              alt="Logo"
-            />
+            <img src="/logoFlavor.png" className="w-20 h-20 " alt="Logo" />
           </NavLink>
 
           {/* Cart & Login/Sign Up Button */}
-          <div className="flex items-center space-x-4 md:order-2 rtl:space-x-reverse">
+          <div className="flex items-center space-x-1 md:space-x-4 lg:space-x-4 md:order-2 rtl:space-x-reverse">
             <NavLink to="/cart" className="relative">
               <button className="flex items-center justify-center">
                 <img
                   src="/cart.png"
-                  className="w-10 h-10"
+                  className="w-8 cursor-pointer"
                   alt="Cart"
                 />
                 {/* Display cart item count */}
                 {cartItemCount > 0 && (
-                  <div className="absolute top-7 right-7 bg-green-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <div className="absolute top-6 right-6 bg-green-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItemCount}
                   </div>
                 )}
               </button>
             </NavLink>
 
-            <NavLink to="/login">
-              <button
-                type="button"
-                className="text-gray-600 hover:text-orange-500 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+            <div className="relative group">
+              <NavLink
+                to="/login"
+                className="text-gray-600 hover:text-orange-500 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 flex items-center"
               >
-                Login
-              </button>
-            </NavLink>
-            <NavLink to="/signup">
-              <button
-                type="button"
-                className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-              >
-                Sign Up
-              </button>
-            </NavLink>
+                <img
+                  className="w-6 cursor-pointer"
+                  src="/profile_icon.png"
+                  alt="Profile"
+                />
+              </NavLink>
+
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-2 w-40  bg-white rounded-md shadow-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <NavLink
+                  to="/order"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-orange-500 text-center rounded-md"
+                >
+                  Orders
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  className="w-full  block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-orange-500 text-center rounded-md"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
 
             {/* Hamburger Menu for Mobile */}
             <button
@@ -96,8 +113,7 @@ const Navbar = () => {
             } items-center justify-center w-full md:flex md:w-auto md:order-1`}
             id="navbar-cta"
           >
-            
-            <ul className="flex flex-col w-40 font-medium p-4 md:p-0 mt-4 md:space-x-8 md:flex-row dark:border-gray-700 ">
+            <ul className="flex flex-col w-40 font-medium p-4 mr-20 md:mr-32 lg:mr-32 md:p-0 mt-4 md:space-x-8 md:flex-row dark:border-gray-700 ">
               <li>
                 <NavLink
                   to="/"
@@ -134,8 +150,6 @@ const Navbar = () => {
                   CONTACT
                 </NavLink>
               </li>
-
-              
             </ul>
           </div>
         </div>
