@@ -63,9 +63,9 @@ import food_banana_in_coconut_milk_62 from "./food_banana_in_coconut_milk_62.png
 import food_gnocchi_in_coconut_milk_63 from "./food_gnocchi_in_coconut_milk_63.png"
 import food_egg_custard_in_pumpkin_64 from "./food_egg_custard_in_pumpkin_64.png"
 import food_singaporian_sweet_dumpling_65 from "./food_singaporian_sweet_dumpling_65.png"
-import food_vermicelli_in_coconut_milk_66 from "./food_vermicelli_in_coconut_milk_66.png"
+import sarim from "./Sarim.jpg"
 import food_steamed_pandan_layer_cake_67 from "./food_steamed_pandan_layer_cake_67.png"
-import food_steamed_coconut_custard_68 from "./food_steamed_coconut_custard_68.png"
+import khanomthuai from "./Khanomthuai.png"
 import food_steamed_flour_with_coconut_filling_69 from "./food_steamed_flour_with_coconut_filling_69.png"
 import food_toddy_palm_cake_70 from "./food_toddy_palm_cake_70.png"
 
@@ -783,7 +783,7 @@ export const food_list: FoodItem[] = [
     image: food_chicken_salad_rice_47,
     price: 95,
     description:
-      "ข้าวร้อนๆ กับไก่ทอดกรอบ เสริมด้วยน้ำยำแซ่บครบรส แสนอร่อยเพิ่มเสิร์ฟอร่อยทันที",
+      "ข้าวร้อนๆ กับไก่ทอดกรอบ เสริมด้วยน้ำจิ้มครบรส แสนอร่อยเพิ่มเสิร์ฟอร่อยทันที",
     category: "Savory_food",
     ingredients: `ข้าวสวย 200 กรัม, ไก่ทอดกรอบ 100 กรัม, น้ำยำ 50 มล. (น้ำปลา 1 ช้อนโต๊ะ, น้ำมะนาว 1 ช้อนโต๊ะ, น้ำตาลปี๊บ 1 ช้อนชา, พริกขี้หนูสับ 1 ช้อนชา), ผักชีฝรั่งซอย 10 กรัม`,
     storageInstructions: "เก็บในตู้เย็นและอุ่นด้วยไมโครเวฟก่อนรับประทาน",
@@ -1065,8 +1065,8 @@ export const food_list: FoodItem[] = [
   },
   { 
     _id: "66",
-    name: "Vermicelli in coconut milk",
-    image: food_vermicelli_in_coconut_milk_66,   
+    name: "Sarim",
+    image: sarim,   
     price: 45,
     description:
       "ขนมไทยรสดั้งเดิมกับความหอมหวานของน้ำกะทิ สุดแสนอร่อย กินได้ทุกเพศทุกวัย",
@@ -1096,7 +1096,7 @@ export const food_list: FoodItem[] = [
   { 
     _id: "68",
     name: "Steamed Coconut Custard",
-    image: food_steamed_coconut_custard_68,
+    image: khanomthuai,
     price: 30,
     description:
       "ขนมถ้วยข้าวเหนียวเนื้อนุ่ม หวานมันจากกะทิ สุดแสนอร่อย กินได้ทุกเพศทุกวัย",
