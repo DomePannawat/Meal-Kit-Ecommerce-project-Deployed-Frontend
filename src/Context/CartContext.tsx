@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 type CartItem = {
-  _id: string;
+  _id: number;
   name: string;
   quantity: number;
   price: number;
@@ -18,8 +18,8 @@ type CartContextType = {
   cartItems: CartItem[];
   addToCart: (item: CartItem, quantity: number) => void;
   getCartItemCount: () => number;
-  updateQuantity: (_id: string, quantity: number) => void;
-  removeFromCart: (_id: string) => void;
+  updateQuantity: (_id: number, quantity: number) => void;
+  removeFromCart: (_id: number) => void;
   clearCart: () => void;
   totalAmount: number;
   userInfo: { name: string; address: string };
@@ -72,7 +72,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  const updateQuantity = (_id: string, quantity: number) => {
+  const updateQuantity = (_id: number, quantity: number) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item._id === _id ? { ...item, quantity: Math.max(1, quantity) } : item
@@ -80,7 +80,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     );
   };
 
-  const removeFromCart = (_id: string) => {
+  const removeFromCart = (_id: number) => {
     setCartItems((prevItems) => prevItems.filter((item) => item._id !== _id));
   };
 

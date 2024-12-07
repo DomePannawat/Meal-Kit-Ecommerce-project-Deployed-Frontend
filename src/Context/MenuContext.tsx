@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { food_list } from "../assets/assets";
 
 type MenuItem = {
-  _id: string;
+  _id: number;
   name: string;
   price: number;
   category: string;
@@ -40,7 +40,8 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({
       sortedItems = [...menuItems].sort((a, b) => b.price - a.price);
     } else {
       sortedItems = [...menuItems].sort(
-        (a, b) => parseInt(a._id) - parseInt(b._id)
+        (a, b) => a._id - b._id
+
       );
     }
     setMenuItems(sortedItems);

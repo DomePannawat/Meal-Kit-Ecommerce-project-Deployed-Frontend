@@ -1,31 +1,63 @@
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // ตรวจสอบความถูกต้องของข้อมูล
+    if (!email || !password) {
+      setError("กรุณากรอกข้อมูลให้ครบถ้วน.");
+      return;
+    }
+
+    // ตัวเทสล็อคอิน email และ password บรรทัด 24-33 ต้องเอาออกอยู่ละ อันนี้เอาไว้เทสเฉยๆ ฝั่ง font-end
+    if (email === "admin@gmail.com" && password === "12345678") {
+      // Login สำเร็จ
+      setIsSubmitting(true);
+      setTimeout(() => {
+        navigate("/"); 
+      }, 1000); 
+    } else {
+      setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
+    }
   };
 
-  const formVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
+  /*   สำหรับ back-end ตอนนี้คอมเม้นไว้ก่อน เผื่อจะได้กลับมาใช้
+  try {
+      setIsSubmitting(true);
+      // ส่งข้อมูล email และ password ไปยัง back-end ด้วย axios
+      const response = await axios.post("http://your-api-endpoint/login", {
+        email,
+        password,
+      });
+
+      // ถ้า response.status === 200 หรือสำเร็จ
+      if (response.data.success) {
+        // Login สำเร็จ
+        setTimeout(() => {
+          navigate("/"); // หลังจากล็อกอินเสร็จให้ไปที่หน้า Home
+        }, 1000);
+      } else {
+        setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
+      }
+    } catch (error) {
+      setError("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+  */
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50 ">
@@ -46,7 +78,6 @@ const Login = () => {
         </motion.div>
       </div>
       <div className="flex-1 mb-20">
-        {/* Animated Header */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -70,46 +101,31 @@ const Login = () => {
 
         {/* Login Form Container */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
           className="flex justify-center px-4 sm:px-6 lg:px-8"
         >
           <motion.form
-            variants={formVariants}
             className="flex flex-col justify-center items-center bg-white/80  border border-teal-100 rounded-2xl shadow-xl p-8 w-full max-w-md mt-8 md:mt-12"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
-            <motion.div
-            className="w-full space-y-2"
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            >
-              <label htmlFor="username" className="block font-bold text-3xl text-center text-teal-700 mb-8">
-                Login
-              </label>
-            </motion.div>
-            {/* Username Field */}
             <motion.div
               className="w-full space-y-2"
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <label htmlFor="username" className="block font-semibold text-teal-700">
-                Username
+              <label htmlFor="email" className="block font-semibold text-teal-700">
+                Email
               </label>
               <motion.input
-                whileFocus={{ scale: 1.02 }}
-                type="text"
-                id="username"
+                type="email"
+                id="email"
                 className="border-2 border-teal-100 rounded-lg w-full h-12 px-4 focus:outline-none focus:border-teal-500 transition-colors"
-                placeholder="Enter your username"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </motion.div>
 
-            {/* Password Field */}
             <motion.div
               className="w-full space-y-2 mt-6"
               initial={{ x: 50, opacity: 0 }}
@@ -120,21 +136,35 @@ const Login = () => {
                 Password
               </label>
               <motion.input
-                whileFocus={{ scale: 1.02 }}
                 type="password"
                 id="password"
                 className="border-2 border-teal-100 rounded-lg w-full h-12 px-4 focus:outline-none focus:border-teal-500 transition-colors"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </motion.div>
+
+            {/* แสดงข้อผิดพลาด */}
+            {error && (
+              <motion.p
+                className="text-red-500 text-sm mt-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                {error}
+              </motion.p>
+            )}
 
             {/* Login Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="mt-8 w-full max-w-[200px] h-12 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
+              disabled={isSubmitting}
             >
-              Login
+              {isSubmitting ? "Logging in..." : "Login"}
             </motion.button>
 
             {/* Create Account Link */}
