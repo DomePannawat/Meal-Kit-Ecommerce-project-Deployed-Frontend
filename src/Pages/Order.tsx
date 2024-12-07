@@ -116,7 +116,7 @@ const Order = () => {
                         whileTap={{ scale: 0.98 }}
                         className="inline-flex items-center px-6 py-2.5 text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
                       >
-                        Track Order
+                        Refresh
                       </motion.button>
                     </div>
                   </div>

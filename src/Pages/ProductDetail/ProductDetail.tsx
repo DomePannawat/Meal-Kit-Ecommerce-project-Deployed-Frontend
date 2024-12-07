@@ -16,7 +16,7 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1); 
 
   useEffect(() => {
-    const item = menuItems.find((menuItem) => menuItem._id === id);
+    const item = menuItems.find((menuItem) => menuItem._id === Number(id));
     if (item) {
       setProductData(item);
     }

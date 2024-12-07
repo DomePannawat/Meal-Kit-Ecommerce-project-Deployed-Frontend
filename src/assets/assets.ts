@@ -70,7 +70,7 @@ import food_steamed_flour_with_coconut_filling_69 from "./food_steamed_flour_wit
 import food_toddy_palm_cake_70 from "./food_toddy_palm_cake_70.png"
 
 type FoodItem = {
-  _id: string;
+  _id: number;
   name: string;
   image: string;
   price: number;
@@ -87,7 +87,7 @@ type FoodItem = {
 export const food_list: FoodItem[] = [
   {   //  MealKits-----------------------------------------------------------------------------
     // boil-----------------------------------------------------------------------------
-    _id: "1",
+    _id: 1 ,
     name: "Prawn Tom Yum",
     image: food_Prawn_Tom_Yum_1,
     price: 120,
@@ -102,7 +102,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มยำกุ้งน้ำใสเป็นเมนูซุปยอดนิยมของไทยที่โดดเด่นด้วยรสเผ็ดเปรี้ยวและกลิ่นสมุนไพรที่สดชื่น วัตถุดิบหลักอย่างกุ้งสดช่วยเพิ่มความหวานกลมกล่อมให้กับน้ำซุปที่ปรุงด้วยตะไคร้ ใบมะกรูด และข่า การเติมน้ำมะนาวและน้ำปลาเสริมรสชาติให้สมดุล เหมาะสำหรับรับประทานในมื้ออาหารที่ต้องการความจัดจ้านและสดชื่น`,
   },
   {   
-    _id: "2",
+    _id: 2 ,
     name: "Spicy Chicken Curry in Coconut Milk",
     image: food_spicy_chicken_curry_2 ,
     price: 100,
@@ -117,7 +117,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มข่าไก่เป็นซุปกะทิรสละมุนที่มีความหอมมันจากกะทิและกลิ่นเครื่องเทศไทย ไก่สดถูกปรุงจนเนื้อนุ่มและเข้ากับน้ำซุปที่มีส่วนผสมของข่า ใบมะกรูด และตะไคร้ เพิ่มความเปรี้ยวจากน้ำมะนาวและความเค็มกลมกล่อมจากน้ำปลา เหมาะสำหรับมื้ออาหารที่ต้องการรสชาติอ่อนโยนแต่กลมกล่อม`,
   },
   {   
-    _id: "3",
+    _id: 3 ,
     name: "Fiery Pork Ribs Broth",
     image: food_fiery_pork_ribs_3 , 
     price: 110,
@@ -132,7 +132,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มแซ่บกระดูกหมูเป็นซุปเผ็ดเปรี้ยวที่เน้นความเข้มข้นของรสชาติ วัตถุดิบอย่างกระดูกหมูทำให้น้ำซุปมีความหวานธรรมชาติ ผสมผสานกับเครื่องสมุนไพร เช่น ตะไคร้ ข่า และพริกสด ที่ช่วยเพิ่มกลิ่นหอมชวนรับประทาน ซุปนี้เหมาะสำหรับมื้อเย็นหรือมื้อที่ต้องการอาหารที่มีรสจัดจ้าน`,
   },
   {   
-    _id: "4",
+    _id: 4,
     name: "Stuffed Bitter Gourd with Minced Pork",
     image:  food_Bitter_Pork_4, 
     price: 90,
@@ -147,7 +147,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มจืดมะระยัดไส้เป็นเมนูซุปที่ให้รสชาติกลมกล่อมและหอมอ่อนๆ มะระสดถูกนำมายัดไส้หมูสับปรุงรส เพิ่มความหวานธรรมชาติจากน้ำซุปที่ต้มจนได้กลิ่นหอมของกระเทียมและพริกไทย ซุปนี้เหมาะสำหรับมื้อเบาๆ และเติมความอบอุ่นในวันสบายๆ`,
   },
   {   
-    _id: "5",
+    _id: 5,
     name: "Soup with Pork Rips",
     image: food_soup_with_pork_5, 
     price: 95,
@@ -162,7 +162,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มจืดกระดูกหมูเป็นซุปที่เรียบง่ายแต่เต็มไปด้วยคุณค่า วัตถุดิบอย่างกระดูกหมูและผักสด เช่น แครอท หัวไชเท้า และฟักทอง ช่วยเพิ่มสีสันและรสชาติให้น้ำซุป ความหวานของผักต้มและกลิ่นหอมของกระดูกหมูทำให้ซุปนี้เหมาะสำหรับมื้ออาหารเช้าหรือมื้อเบาๆ`,
   },
   {   
-    _id: "6",
+    _id: 6,
     name: "Pork blood soup",
     image: food_pork_blood_soup_6, 
     price: 100,
@@ -177,7 +177,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มเลือดหมูเป็นซุปที่มีเอกลักษณ์ในรสชาติและวัตถุดิบ เลือดหมูสดและเครื่องในถูกปรุงจนสุกนุ่มและเข้ากับน้ำซุปที่มีกลิ่นหอมจากกระเทียมเจียวและตำลึง เพิ่มความเผ็ดเล็กน้อยจากพริกไทย ซุปนี้เหมาะสำหรับผู้ที่ต้องการมื้ออาหารที่เรียบง่ายและเต็มไปด้วยประโยชน์`,
   },
   {   
-    _id: "7",
+    _id: 7,
     name: "Minced Pork Tofu with Seaweed",
     image: food_pork_tofu_with_seaweed_7, 
     price: 90,
@@ -192,7 +192,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มจืดเต้าหู้หมูสับสาหร่ายเป็นซุปที่ให้ความสดชื่นและกลิ่นหอมเฉพาะตัว เต้าหู้เนื้อนุ่มและหมูสับปรุงรสเข้ากันดีกับสาหร่ายทะเลที่เติมลงในน้ำซุปอ่อนๆ โรยด้วยต้นหอมเพื่อเพิ่มสีสันและกลิ่นหอม ซุปนี้เหมาะสำหรับมื้อที่ต้องการอาหารสุขภาพและรสชาติที่เบาๆ`,
   },
   {   // stir fry-----------------------------------------------------------------------------
-    _id: "8",
+    _id: 8,
     name: "Stir-Fried Chinese Morning Glory",
     image: food_stir_fried_8,  
     price: 80,
@@ -207,7 +207,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดผักบุ้งไฟแดงเป็นเมนูผัดผักที่ใช้ผักบุ้งสด ผัดกับพริกและกระเทียมจนหอม ใส่ซอสหอยนางรมและน้ำปลาเพื่อเพิ่มรสชาติ เมนูนี้มีรสชาติหอมมันและผักบุ้งที่กรอบนอกนุ่มใน เหมาะสำหรับรับประทานเป็นเครื่องเคียงหรืออาหารจานหลัก`,
   },
   {  
-    _id: "9",
+    _id: 9,
     name: "Stir-fried minced pork with green beans",
     image: food_Stir_fried_minced_pork_9, 
     price: 90,
@@ -222,7 +222,7 @@ export const food_list: FoodItem[] = [
     longDescription: `หมูสับผัดถั่วฝักยาวเป็นเมนูที่ใช้หมูสับและถั่วฝักยาวสด ผัดกับกระเทียมและเครื่องปรุงเช่น ซอสหอยนางรมและน้ำปลา เมนูนี้มีรสชาติหอมมันและเนื้อสัมผัสกรอบของถั่วฝักยาว เหมาะสำหรับรับประทานกับข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "10",
+    _id: 10,
     name: "Spicy catfish stir fry",
     image: food_Stir_spicy_catfish_10, 
     price: 100,
@@ -237,7 +237,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดเผ็ดปลาดุกเป็นเมนูที่ใช้ปลาดุกสด ผัดกับพริกแกงเผ็ดและสมุนไพรไทยเช่น ตะไคร้ ใบมะกรูด และพริกไทยสด เมนูนี้มีรสชาติหอมเผ็ดและเนื้อสัมผัสนุ่มของปลาดุก เหมาะสำหรับผู้ที่ชื่นชอบอาหารรสจัด`,
   },
   {  
-    _id: "11",
+    _id: 11,
     name: "Stir-fried chicken with ginger",
     image: food_chicken_with_ginger_11, 
     price: 90,
@@ -252,7 +252,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ไก่ผัดขิงเป็นเมนูที่ใช้ไก่สด ผัดกับขิงและกระเทียม ใส่ซอสหอยนางรมและน้ำปลาเพื่อเพิ่มรสชาติ เมนูนี้มีรสชาติหอมมันและความเผ็ดร้อนจากขิง เหมาะสำหรับรับประทานกับข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "12",
+    _id: 12,
     name: "Bean sprouts, tofu and minced pork",
     image: food_bean_sprouts_and_pork_12,
     price: 80,
@@ -267,7 +267,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดถั่วงอกเต้าหู้หมูสับเป็นเมนูที่ใช้ถั่วงอกสด เต้าหู้ และหมูสับ ผัดกับกระเทียมและซอสปรุงรสเช่น ซอสหอยนางรมและน้ำปลา เมนูนี้มีรสชาติหอมมันและเนื้อสัมผัสกรอบของถั่วงอก เหมาะสำหรับรับประทานกับข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "13",
+    _id: 13,
     name: "Stir-fried cockles with chili paste",
     image: food_cockles_with_chili_13, 
     price: 100,
@@ -282,7 +282,7 @@ export const food_list: FoodItem[] = [
     longDescription: `หอยลายผัดพริกเผาเป็นเมนูที่ใช้หอยลายสด ผัดกับพริกเผาและกระเทียม ใส่ซอสหอยนางรมและน้ำปลาเพื่อเพิ่มรสชาติ เมนูนี้มีรสชาติหอมมันและเผ็ดร้อนจากพริกเผา เหมาะสำหรับรับประทานกับข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "14",
+    _id: 14,
     name: "Rice Noodles with Soy Sauce and Pork",
     image: food_noodles_soy_pork_14,  
     price: 100,
@@ -297,7 +297,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดซีอิ้วเป็นเมนูที่ใช้เส้นใหญ่ ผัดกับซีอิ้วขาวและเนื้อสัตว์เช่น ไก่หรือหมู รวมกับคะน้าสดและกระเทียม เมนูนี้มีรสชาติหอมมันและเนื้อสัมผัสเหนียวนุ่มของเส้นใหญ่ เหมาะสำหรับรับประทานเป็นมื้อหลัก`,
   },
   {  
-    _id: "15",
+    _id: 15,
     name: "Shrimp fried rice",
     image: food_shrimp_fried_rice_15,  
     price: 90,
@@ -312,7 +312,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ข้าวผัดกุ้งเป็นเมนูที่ใช้ข้าวสวย ผัดกับกุ้งสดและเครื่องปรุงเช่น กระเทียม หอมใหญ่ ซอสหอยนางรม และน้ำปลา เมนูนี้มีรสชาติหอมมันและเนื้อสัมผัสนุ่มของข้าวและกุ้ง เหมาะสำหรับรับประทานเป็นมื้อหลัก`,
   },
   {
-    _id: "16",
+    _id: 16,
     name: "Stir-fried squid with salted egg",
     image: food_stir_fried_squid_salted_egg_16,  
     price: 120,
@@ -327,7 +327,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ปลาหมึกไข่เค็มเป็นเมนูที่ใช้ปลาหมึกสด ผัดกับไข่เค็มและกระเทียม ใส่พริกสดและซอสหอยนางรมเพื่อเพิ่มรสชาติ เมนูนี้มีรสชาติหอมมันและเนื้อสัมผัสเหนียวนุ่มของปลาหมึกและไข่เค็ม เหมาะสำหรับรับประทานกับข้าวสวยร้อนๆ`,
   },
   { // curry-----------------------------------------------------------------------------
-    _id: "17",
+    _id: 17,
     name: "Chicken Green Curry",
     image: food_chicken_green_curry_17, 
     price: 120,
@@ -342,7 +342,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงเขียวหวานไก่เป็นอาหารไทยที่ขึ้นชื่อเรื่องรสชาติหอมหวานจากกะทิและความเผ็ดจากพริกแกงเขียวหวาน ผสมผสานกับเนื้อไก่นุ่ม มะเขือพวงที่กรุบกรอบ และใบโหระพาที่เพิ่มกลิ่นหอมเฉพาะตัว ทำให้แกงนี้เป็นที่โปรดปรานของหลายครอบครัว`,
   },
   { 
-    _id: "18",
+    _id: 18,
     name: "Chicken Massaman Curry",
     image: food_chicken_massaman_curry_18,
     price: 130,
@@ -357,7 +357,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงมัสมั่นไก่เป็นเมนูที่มีกลิ่นอายของเครื่องเทศแบบไทยและอินเดีย ผสมผสานรสชาติหวาน มัน และหอมมันฝรั่งนุ่มๆ ถั่วลิสงกรุบกรอบ และเนื้อไก่ที่เคี่ยวจนชุ่มน้ำแกง เหมาะสำหรับมื้อพิเศษ`,
   },
   {
-    _id: "19",
+    _id: 19,
     name: "Pork Panang Curry",
     image: food_pork_panang_curry_19,
     price: 120,
@@ -372,7 +372,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงพะแนงหมูมีรสชาติเข้มข้นจากพริกแกงพะแนงและกลิ่นหอมสดชื่นของใบมะกรูด ผสมผสานกับหมูที่นุ่มชุ่มน้ำกะทิ พร้อมพริกชี้ฟ้าสีแดงที่เพิ่มความสวยงามและรสชาติเผ็ดปลายลิ้น`,
   },
   {
-    _id: "20",
+    _id: 20,
     name: "Sour Curry with Vegetable Omelet",
     image: food_sour_curry_vegetable_omelet_20,
     price: 110,
@@ -387,7 +387,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงส้มชะอมกุ้งเป็นอาหารที่โดดเด่นด้วยรสชาติเปรี้ยวและเผ็ดที่ลงตัว พร้อมด้วยชะอมกรอบและกุ้งสดที่เพิ่มรสชาติอร่อย น้ำแกงเข้มข้นด้วยมะขามเปียกและพริกแกงส้ม เหมาะสำหรับคนรักอาหารรสจัด`,
   },
   {
-    _id: "21",
+    _id: 21,
     name: "Cassia Leaves Curry",
     image: food_cassia_leaves_curry_21,
     price: 100,
@@ -402,7 +402,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงขี้เหล็กเป็นเมนูไทยโบราณที่มีกลิ่นหอมเป็นเอกลักษณ์และรสชาติขมอ่อนๆ จากใบขี้เหล็ก ผสมกับเนื้อปลาและน้ำกะทิเข้มข้น พร้อมพริกแกงเผ็ดที่ช่วยเพิ่มความกลมกล่อมในทุกคำ`,
   },
   {
-    _id: "22",
+    _id: 22,
     name: "Thai Curry with River Snail",
     image: food_thai_curry_river_snail_22,
     price: 120,
@@ -417,7 +417,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงคั่วหอยขมเป็นเมนูที่มีรสชาติหลากหลาย ทั้งเผ็ด หวาน และหอมพริกแกงคั่ว หอยขมนุ่มเคี้ยวหนึบตัดกับความมันของกะทิและกลิ่นหอมสดชื่นจากใบชะพลูและพริกชี้ฟ้าแดง`,
   },
   {
-    _id: "23",
+    _id: 23,
     name: "Thai Shrimp and Vegetable Soup",
     image: food_thai_spicy_mixed_vegetable_soup_23,
     price: 110,
@@ -432,7 +432,7 @@ export const food_list: FoodItem[] = [
     longDescription: `แกงเลียงเป็นเมนูสุขภาพที่รวมผักหลากชนิดและกุ้งสด น้ำแกงหอมกลิ่นพริกแกงเลียงที่เผ็ดร้อนอ่อนๆ และรสหวานจากผักธรรมชาติ เหมาะสำหรับคนรักสุขภาพที่ชอบความกลมกล่อม`,
   },
   { // deep_fly-----------------------------------------------------------------------------
-    _id: "24",
+    _id: 24,
     name: "Crispy Fried Shrimps with Garlic",
     image: food_crispy_fried_24,
     price: 120,
@@ -447,7 +447,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เมนูกุ้งทอดที่นำกุ้งขาวมาคลุกแป้งทอดกรอบ แล้วทอดจนเหลืองหอม พร้อมผัดกับกระเทียมและปรุงรสให้อร่อยกลมกล่อม เหมาะสำหรับมื้ออาหารง่ายๆ`,
   },
   { 
-    _id: "25",
+    _id: 25,
     name: "Garlic and Pepper Pork",
     image: food_garlic_and_pepper_pork_25, 
     price: 100,
@@ -462,7 +462,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เมนูหมูทอดกรอบที่นำหมูสันคอหมักพริกไทยดำ และผัดกับกระเทียมจนหอม รสชาติกลมกล่อม หอมพริกไทยดำ เหมาะสำหรับเสิร์ฟกับข้าวร้อนๆ`,
   },
   { 
-    _id: "26",
+    _id: 26,
     name: "Thai Fish Cake",
     image: food_thai_fish_cake_26,  
     price: 90,
@@ -477,7 +477,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เมนูทอดมันที่ใช้เนื้อปลากรายบดละเอียด คลุกเคล้ากับพริกแกงแดงและถั่วฝักยาว ปรุงรสจนเข้ากัน ก่อนนำไปทอดให้กรอบนอกนุ่มใน เหมาะสำหรับทานเล่นหรือกับข้าว`,
   },
   { 
-    _id: "27",
+    _id: 27,
     name: "Deep-Fried Red Tilapia With Sauce",
     image: food_deep_fried_red_tilapia_27,  
     price: 150,
@@ -492,7 +492,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ปลาทับทิมสดที่นำไปทอดจนกรอบ ราดด้วยซอสน้ำปลาหอมกรุ่น เสิร์ฟพร้อมน้ำจิ้มซีฟู้ดรสจัดจ้าน เหมาะสำหรับมื้อพิเศษ`,
   },
   { 
-    _id: "28",
+    _id: 28,
     name: "Crispy fish with Red curry",
     image: food_crispy_fish_with_red_curry_28,  
     price: 140,
@@ -507,7 +507,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เมนูปลานิลที่นำไปทอดจนกรอบ และราดด้วยซอสพริกที่ผสมผสานระหว่างรสหวาน เค็ม และเผ็ด เสิร์ฟพร้อมข้าวสวยร้อนๆ`,
   },
   { 
-    _id: "29",
+    _id: 29,
     name: "Fried oysters with egg",
     image: food_fried_oysters_with_egg_29, 
     price: 80,
@@ -522,7 +522,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เมนูหอยทอดที่ใช้หอยแมลงภู่สด คลุกแป้งทอดกรอบและทอดจนเหลืองกรอบ เสิร์ฟพร้อมน้ำจิ้มสูตรพิเศษ หอมอร่อยในทุกคำ`,
   },
   { 
-    _id: "30",
+    _id: 30,
     name: "fried chicken",
     image: food_fried_chicken_30, 
     price: 90,
@@ -537,7 +537,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ไก่ทอดที่ปรุงรสอย่างดี คลุกเคล้ากับแป้งทอดกรอบ ก่อนนำไปทอดจนสีเหลืองทอง กรอบอร่อย เสิร์ฟคู่กับซอสตามชอบ เหมาะสำหรับทุกมื้ออาหาร`,
   },
   { // Salad-----------------------------------------------------------------------------
-    _id: "31",
+    _id: 31,
     name: "Thai Glass Noodle Salad",
     image: food_thai_glass_noodle_salad_31, 
     price: 85,
@@ -552,7 +552,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำวุ้นเส้นกุ้งสด เมนูสุขภาพที่เต็มไปด้วยความอร่อย รสชาติเปรี้ยวเผ็ดกำลังดี ผสมผสานวุ้นเส้นเหนียวนุ่มกับกุ้งสดหวาน พร้อมน้ำยำที่ปรุงจากมะนาว น้ำปลา และพริกขี้หนู รับประทานพร้อมผักสดเพิ่มความสดชื่น`,
   },
   { 
-    _id: "32",
+    _id: 32,
     name: "Salted Egg Spicy Salad",
     image: food_salted_egg_spicy_salad_32, 
     price: 75,
@@ -567,7 +567,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำไข่เค็ม อาหารที่ผสมผสานความเค็มจากไข่เค็มกับรสชาติเปรี้ยวหวานของน้ำยำ ตัดรสด้วยพริกขี้หนู เพิ่มสัมผัสด้วยหอมแดงและมะเขือเทศสด เหมาะสำหรับทุกมื้ออาหาร`,
   },
   { 
-    _id: "33",
+    _id: 33,
     name: "Spicy Canned Fish Salad",
     image: food_spicy_fish_salad_33,
     price: 70,
@@ -582,7 +582,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำปลากระป๋องเป็นเมนูง่าย ๆ แต่เต็มไปด้วยรสชาติ น้ำยำหอมเปรี้ยวจากน้ำมะนาวและพริกขี้หนู ตัดกับความมันของปลากระป๋อง เพิ่มสีสันด้วยผักชีและต้นหอม เหมาะสำหรับคนที่ต้องการความสะดวกและรวดเร็ว`,
   },
   { 
-    _id: "34",
+    _id: 34,
     name: "Instant Noodle Spicy Salad",
     image: food_instant_noodle_spicy_salad_34, 
     price: 60,
@@ -597,7 +597,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำมาม่า เมนูยอดนิยมสำหรับทุกเพศทุกวัย ผสมผสานเส้นมาม่าที่เหนียวนุ่มเข้ากับหมูสับและน้ำยำรสจัดจ้าน เพิ่มความหอมด้วยพริกขี้หนูและหอมแดง พร้อมให้คุณได้สัมผัสกับรสชาติที่คุ้นเคย`,
   },
   { 
-    _id: "35",
+    _id: 35,
     name: "Spicy Pork Sausage Salad",
     image: food_spicy_pork_salad_35, 
     price: 80,
@@ -612,7 +612,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำหมูยอเป็นเมนูที่เต็มไปด้วยหมูยอเนื้อแน่นและเครื่องยำรสจัดจ้าน ความเปรี้ยวเผ็ดของน้ำยำเข้ากับความมันของหมูยอได้เป็นอย่างดี เหมาะสำหรับคนที่ชื่นชอบรสชาติแบบจัดเต็ม`,
   },
   { 
-    _id: "36",
+    _id: 36,
     name: "Spicy Cockle Salad",
     image: food_spicy_cockle_salad_36,  
     price: 90,
@@ -627,7 +627,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำหอยแครงเมนูยอดฮิตสำหรับคนรักซีฟู้ด ใช้หอยแครงสดเนื้อเด้ง ปรุงรสด้วยน้ำยำสูตรพิเศษที่หอมเปรี้ยว เพิ่มความอร่อยด้วยผักชีและหอมแดง กินคู่กับข้าวสวยร้อน ๆ ก็อร่อยสุด ๆ`,
   },
   { 
-    _id: "37",
+    _id: 37,
     name: "Trio Crisp Thai Salad",
     image: food_trio_crisp_thai_salad_37,  
     price: 85,
@@ -642,7 +642,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำสามกรอบ เมนูที่รวมความกรอบจากปลากรอบ หมูกรอบ และกระเพาะปลาเข้าด้วยกัน ราดด้วยน้ำยำรสจัดจ้านที่ผสมผสานเปรี้ยว หวาน เค็ม และเผ็ดในหนึ่งคำ เหมาะสำหรับทุกมื้ออาหาร`,
   },
   { 
-    _id: "38",
+    _id: 38,
     name: "Prawn & Winged Bean Salad",
     image: food_prawn_and_winged_Salad_38,  
     price: 90,
@@ -657,7 +657,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำถั่วพูกุ้งสด เมนูสุขภาพที่อุดมไปด้วยโปรตีนและไฟเบอร์จากถั่วพู กุ้งสด และไข่ต้ม น้ำยำรสกลมกล่อมช่วยเพิ่มความสดชื่น เหมาะสำหรับคนรักอาหารที่มีคุณค่าทางโภชนาการ`,
   },
   { 
-    _id: "39",
+    _id: 39,
     name: "Mackerel Spicy Salad",
     image: food_mackerel_spicy_salad_39,  
     price: 75,
@@ -672,7 +672,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ยำปลาทู เมนูง่าย ๆ ที่รสชาติไม่ธรรมดา ใช้ปลาทูทอดหอมกรุ่นคลุกเคล้ากับสมุนไพรไทย เช่น ตะไคร้และหอมแดง ปรุงรสด้วยน้ำมะนาวและพริกขี้หนูจนได้รสชาติเข้มข้น อร่อยลงตัว`,
   },
   { 
-    _id: "40",
+    _id: 40,
     name: "Chicken Feet Thai Spicy Salad",
     image: food_chicken_feet_salad_40,  
     price: 80,
@@ -688,7 +688,7 @@ export const food_list: FoodItem[] = [
   },
   {   //  PreparedAndReady -----------------------------------------------------------------------------
     // Savory_food-----------------------------------------------------------------------------
-    _id: "41",
+    _id: 41,
     name: "Stir-fried Pork with Basil and Fried Egg",
     image: food_pork_with_basil_and_fried_egg_41, 
     price: 70,
@@ -703,7 +703,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ตั้งกระทะผัดกระเทียม พริก และหมูสับจนหอม เติมซอสปรุงรส ใส่ใบกระเพราผัดจนสุก เสิร์ฟพร้อมข้าวและไข่ดาว`,
   },
   {  
-    _id: "42",
+    _id: 42,
     name: "Thai-style Omelet with Mixed Toppings",
     image: food_omelet_with_mixed_toppings_42,  
     price: 50,
@@ -718,7 +718,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ตีไข่ผสมหมูสับและผักจนเข้ากัน ตั้งกระทะทอดจนไข่เจียวฟู เสิร์ฟพร้อมข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "43",
+    _id: 43,
     name: "Pork Fried Rice",
     image: food_pork_fried_rice_43,
     price: 60,
@@ -733,7 +733,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ตั้งกระทะผัดกระเทียมและหมูจนสุก ใส่ข้าวสวยและไข่ เติมซอสปรุงรส ผัดจนเข้ากัน`,
   },
   {  
-    _id: "44",
+    _id: 44,
     name: "Garlic and Pepper Pork with Rice",
     image: food_garlic_pork_with_rice_44,
     price: 80,
@@ -748,7 +748,7 @@ export const food_list: FoodItem[] = [
     longDescription: `หมักหมูด้วยซอสและพริกไทยก่อนนำไปทอดจนกรอบ โรยกระเทียมเจียว เสิร์ฟพร้อมข้าวสวย`,
   },
   {  
-    _id: "45",
+    _id: 45,
     name: "Panang Chicken Curry with Rice",
     image: food_Panang_chicken_curry_with_rice_45, 
     price: 85,
@@ -763,7 +763,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดพริกแกงกับกะทิ ใส่เนื้อไก่และใบมะกรูดจนสุก เสิร์ฟพร้อมข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "46",
+    _id: 46,
     name: "Stir-Fried Macaroni",
     image: food_macaroni_46, 
     price: 75,
@@ -778,7 +778,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มมะกะโรนีจนสุก ผัดกับซอสมะเขือเทศ ไส้กรอก และผักจนหอม เสิร์ฟทันที`,
   },
   {  
-    _id: "47",
+    _id: 47,
     name: "Spicy Chicken Salad with Rice",
     image: food_chicken_salad_rice_47,
     price: 95,
@@ -793,7 +793,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ทอดไก่จนกรอบเตรียมไว้ ผสมน้ำยำให้ครบรสคลุกกับผักชีฝรั่งและข้าว เสิร์ฟพร้อมไก่ทอดกรอบ`,
   },
   {  
-    _id: "48",
+    _id: 48,
     name: "Grilled Saba Teriyaki with Rice",
     image: food_grilled_saba_teriyaki_rice_48,  
     price: 120,
@@ -808,7 +808,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ย่างปลาซาบะจนสุกหอม ราดด้วยซอสซีอิ้วญี่ปุ่นผสมขิงซอยและน้ำมันงา เสิร์ฟพร้อมข้าวสวยร้อนๆ`,
   },
   {  
-    _id: "49",
+    _id: 49,
     name: "Stir-fried Fish with Fresh Chili and Rice",
     image: food_fresh_chili_and_rice_49,
     price: 110,
@@ -823,7 +823,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ตั้งกระทะผัดกระเทียมจนหอม ใส่เนื้อปลาพร้อมพริกสด เติมซอสปรุงรส ผัดจนสุก เสิร์ฟพร้อมข้าวสวย`,
   },
   {  
-    _id: "50",
+    _id: 50,
     name: "Shrimp Paste Fried Rice",
     image: food_shrimp_paste_fried_rice_50, 
     price: 85,
@@ -838,7 +838,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผัดข้าวกับกะปิให้หอม จัดเสิร์ฟพร้อมหมูหวาน ไข่เจียว มะม่วง หอมแดงซอย และพริกขี้หนู`,
   },
   {  
-    _id: "51",
+    _id: 51,
     name: "Crab Fried Rice",
     image: food_crab_fried_rice_51, 
     price: 120,
@@ -853,7 +853,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เริ่มต้นด้วยการตั้งกระทะ ใส่น้ำมันและกระเทียมผัดจนหอม จากนั้นใส่ไข่และข้าวสวยลงไปผัดให้เข้ากัน เติมซอสปรุงรสและเนื้อปู ผัดจนร้อนและเสิร์ฟพร้อมต้นหอมซอย`,
   },
   {  
-    _id: "52",
+    _id: 52,
     name: "Hainanese Chicken Rice",
     image: food_chicken_rice_52,  
     price: 90,
@@ -868,7 +868,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ข้าวมันไก่ปรุงด้วยน้ำมันไก่ ต้มไก่จนเนื้อนุ่ม เสิร์ฟพร้อมน้ำจิ้มรสเด็ดและข้าวมันหอมกรุ่น`,
   },
   {  
-    _id: "53",
+    _id: 53,
     name: "Noodle Fried Rice",
     image: food_noodle_fried_rice_53,   
     price: 90,
@@ -883,7 +883,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เริ่มด้วยการลวกเส้นมาม่าและพักไว้ ผัดกระเทียม ไข่ไก่และข้าวสวยในกระทะ เติมซอสปรุงรส เส้นมาม่า และผักกาดขาว ผัดให้เข้ากันจนสุก`,
   },
   {  
-    _id: "54",
+    _id: 54,
     name: "Thai Fried Rice with Sour Pork",
     image: food_thai_fried_rice_with_sour_pork_54,  
     price: 85,
@@ -898,7 +898,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ตั้งกระทะ ใส่น้ำมันและกระเทียมผัดจนหอม ใส่แหนมหมักและพริกขี้หนูลงไปผัด เติมข้าวสวย ผัดจนร้อนและเข้ากันดี เสิร์ฟพร้อมต้นหอมซอย`,
   },
   {  
-    _id: "55",
+    _id: 55,
     name: "Stir fried squid with basil",
     image: food_stir_fried_squid_with_basil_55,  
     price: 95,
@@ -913,7 +913,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เริ่มด้วยการตั้งกระทะ ใส่น้ำมัน กระเทียม และพริกขี้หนู ผัดจนหอม ใส่ปลาหมึกและผัดจนสุก เติมข้าวสวย ใบกะเพรา และซอสปรุงรส ผัดจนเข้ากัน`,
   },
   {  
-    _id: "56",
+    _id: 56,
     name: "Crispy Fish &  Rice Bowls",
     image: food_crispy_fish_rice_bowls_56, 
     price: 120,
@@ -928,7 +928,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ทอดเนื้อปลาจนกรอบนอกนุ่มใน เสิร์ฟพร้อมข้าวสวยร้อนๆ แตงกวาหั่น และซอสซีฟู้ดรสจัดจ้าน`,
   },
   {  
-    _id: "57",
+    _id: 57,
     name: "Thai Spicy Shrimp Paste Fried Rice",
     image: food_thai_spicy_shrimp_paste_fried_rice_57, 
     price: 100,
@@ -943,7 +943,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เริ่มด้วยการตั้งกระทะ ผัดกระเทียมกับน้ำพริกลงเรือจนหอม ใส่ข้าวสวยลงไปผัดให้เข้ากัน เสิร์ฟพร้อมกุ้งหวานและผักแนม`,
   },
   {  
-    _id: "58",
+    _id: 58,
     name: "Thai Spicy & Sour Shrimp Curry Omelet",
     image: food_thai_spicy_and_sour_shrimp_curry_with_omelet_58, 
     price: 110,
@@ -958,7 +958,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เตรียมน้ำแกงส้มโดยผสมน้ำพริกแกงกับน้ำเดือด ใส่กุ้งสดและผักลงไปต้มจนสุก เสิร์ฟพร้อมไข่ชะอมทอดและข้าวสวย`,
   },
   {  
-    _id: "59",
+    _id: 59,
     name: "Fried rice with bacon",
     image: food_fried_rice_with_bacon_59, 
     price: 110,
@@ -973,7 +973,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ทอดเบคอนจนกรอบพักไว้ ตั้งกระทะผัดกระเทียมและไข่ ใส่ข้าวและเบคอน เติมซอสปรุงรส ผัดให้เข้ากัน เสิร์ฟพร้อมต้นหอม`,
   },
   {  
-    _id: "60",
+    _id: 60,
     name: "American fried rice",
     image: food_american_fried_rice_60, 
     price: 95,
@@ -989,7 +989,7 @@ export const food_list: FoodItem[] = [
   },
   { 
     // Dessert-----------------------------------------------------------------------------
-    _id: "61",
+    _id: 61,
     name: "Thai Red Rubies in Coconut Milk",
     image: food_red_rubies_in_coconut_milk_61, 
     price: 35,
@@ -1004,7 +1004,7 @@ export const food_list: FoodItem[] = [
     longDescription: `นำแห้วชุบแป้งมันสำปะหลังและเคลือบน้ำหวานแดง ต้มในน้ำเดือดจนลอยตัว เสิร์ฟพร้อมกะทิหวานมันและน้ำแข็งบด`,
   },
   { 
-    _id: "62",
+    _id: 62,
     name: "Banana in Coconut Milk",
     image: food_banana_in_coconut_milk_62, 
     price: 30,
@@ -1019,7 +1019,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ต้มกล้วยน้ำว้ากับน้ำและใบเตย เติมกะทิ น้ำตาล และเกลือ ต้มต่อจนเข้ากัน เสิร์ฟร้อนหรือเย็นได้ตามชอบ`,
   },
   { 
-    _id: "63",
+    _id: 63,
     name: "Thai gnocchi in coconut milk",
     image: food_gnocchi_in_coconut_milk_63,  
     price: 40,
@@ -1034,7 +1034,7 @@ export const food_list: FoodItem[] = [
     longDescription: `นวดแป้งมันกับน้ำอุ่นจนเนียนปั้นเป็นรูปครองแครง ต้มในน้ำเดือดจนลอยตัว เติมกะทิหวานมันที่เคี่ยวกับใบเตย เสิร์ฟอุ่นๆ`,
   },
   { 
-    _id: "64",
+    _id: 64,
     name: "Egg custard in pumpkin",
     image: food_egg_custard_in_pumpkin_64,  
     price: 45,
@@ -1049,7 +1049,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผสมไข่ กะทิ น้ำตาลมะพร้าว และเกลือ กรองให้เนียน เทลงในฟักทองที่คว้านไส้ออก นึ่งจนสุก เสิร์ฟเป็นชิ้น`,
   },
   { 
-    _id: "65",
+    _id: 65,
     name: "Singaporian Sweet Dumpling",
     image: food_singaporian_sweet_dumpling_65,  
     price: 35,
@@ -1064,7 +1064,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผสมกะทิ น้ำตาลปี๊บ และใบเตย ตั้งไฟอ่อนให้หอม เสิร์ฟลอดช่องกับกะทิและน้ำแข็งบด`,
   },
   { 
-    _id: "66",
+    _id: 66,
     name: "Sarim",
     image: sarim,   
     price: 45,
@@ -1079,7 +1079,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผสมแป้งให้เข้ากันปั้นเป็นเม็ด ต้มในน้ำเดือดจนสุก เสิร์ฟกับน้ำกะทิหวานมันที่เคี่ยวด้วยน้ำตาลปี๊บ`,
   },
   { 
-    _id: "67",
+    _id: 67,
     name: "Steamed Pandan Layer Cake",
     image: food_steamed_pandan_layer_cake_67, 
     price: 40,
@@ -1094,7 +1094,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผสมแป้ง กะทิ และน้ำตาล เทลงในพิมพ์ทีละชั้นๆ แต่ละชั้นจะมีสีสันสวยงาม เคี้ยวนุ่มหนึบ หอมกะทิและใบเตย`,
   },
   { 
-    _id: "68",
+    _id: 68,
     name: "Steamed Coconut Custard",
     image: khanomthuai,
     price: 30,
@@ -1109,7 +1109,7 @@ export const food_list: FoodItem[] = [
     longDescription: `ผสมแป้งข้าวเจ้า กะทิ และน้ำตาลปี๊บให้เข้ากัน แล้วเทใส่ถ้วย นึ่งจนสุก เสิร์ฟพร้อมน้ำใบเตยหอมๆ`,
   },
   { 
-    _id: "69",
+    _id: 69,
     name: "Steamed Flour with Coconut Filling",
     image: food_steamed_flour_with_coconut_filling_69, 
     price: 35,
@@ -1124,7 +1124,7 @@ export const food_list: FoodItem[] = [
     longDescription: `เตรียมแป้งแล้วใส่ไส้ต่างๆ เช่น ถั่ว หรือลูกเกด นึ่งจนสุก เสิร์ฟพร้อมกะทิหวาน`,
   },
   { 
-    _id: "70",
+    _id: 70,
     name: "Toddy palm cake",
     image: food_toddy_palm_cake_70, 
     price: 35,
