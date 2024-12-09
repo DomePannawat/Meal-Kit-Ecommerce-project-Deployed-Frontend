@@ -27,11 +27,12 @@ const ProductDetail: React.FC = () => {
 
   const handleAddToCart = () => {
     addToCart(productData, quantity);
-    toast.success(`สินค้าถูกเพิ่มลงตะกร้าเรียบร้อย 🛒`, { 
-      position: "top-right", 
-      autoClose: 3000, 
-      closeOnClick: true, 
-      pauseOnHover: true, 
+    toast.success(`สินค้าถูกเพิ่มลงตะกร้าเรียบร้อย 🛒`, {
+      position: "top-right",
+      autoClose: 2000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      className: "mt-20 mr-4 pointer-events-auto z-[100] shadow-lg", 
     });
   };
 
