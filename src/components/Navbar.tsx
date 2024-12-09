@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useCartContext } from "../Context/CartContext";
-import { NavLink , useNavigate } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { getCartItemCount } = useCartContext();
@@ -16,24 +15,25 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    
     console.log("Logout successfully");
     navigate("/login");
   };
 
   return (
     <div>
-      <nav className="bg-white border-gray-200 ">
-        <div className="max-w-screen-2xl flex flex-wrap  items-center justify-between mx-auto p-4">
+      <nav className="bg-white shadow-md">
+        <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+          {/* Logo */}
           <NavLink
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img src="/logoFlavor.png" className="w-20 h-20 " alt="Logo" />
+            <img src="/logoFlavor.png" className="w-24 h-24" alt="Logo" />
           </NavLink>
 
           {/* Cart & Login/Sign Up Button */}
-          <div className="flex items-center space-x-1 md:space-x-4 lg:space-x-4 md:order-2 rtl:space-x-reverse">
+          <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-6 md:order-2 rtl:space-x-reverse">
+            {/* Cart Icon */}
             <NavLink to="/cart" className="relative">
               <button className="flex items-center justify-center">
                 <img
@@ -41,7 +41,6 @@ const Navbar = () => {
                   className="w-8 cursor-pointer"
                   alt="Cart"
                 />
-                {/* Display cart item count */}
                 {cartItemCount > 0 && (
                   <div className="absolute top-6 right-6 bg-green-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItemCount}
@@ -50,6 +49,7 @@ const Navbar = () => {
               </button>
             </NavLink>
 
+            {/* Profile Icon with Dropdown */}
             <div className="relative group">
               <NavLink
                 to="/login"
@@ -62,8 +62,7 @@ const Navbar = () => {
                 />
               </NavLink>
 
-              {/* Dropdown Menu */}
-              <div className="absolute right-0 mt-2 w-40  bg-white rounded-md shadow-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 <NavLink
                   to="/order"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-orange-500 text-center rounded-md"
@@ -72,7 +71,7 @@ const Navbar = () => {
                 </NavLink>
                 <button
                   onClick={handleLogout}
-                  className="w-full  block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-orange-500 text-center rounded-md"
+                  className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-orange-500 text-center rounded-md"
                 >
                   Logout
                 </button>
@@ -85,7 +84,7 @@ const Navbar = () => {
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-controls="navbar-cta"
-              aria-expanded={isMenuOpen}
+              aria-expanded={isMenuOpen ? "true" : "false"}
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -113,14 +112,14 @@ const Navbar = () => {
             } items-center justify-center w-full md:flex md:w-auto md:order-1`}
             id="navbar-cta"
           >
-            <ul className="flex flex-col w-40 font-medium p-4 mr-20 md:mr-32 lg:mr-32 md:p-0 mt-4 md:space-x-8 md:flex-row dark:border-gray-700 ">
+            <ul className="flex flex-col w-40 font-medium p-4 mr-20 md:mr-44 lg:mr-44 md:p-0 mt-4 md:space-x-5 md:flex-row dark:border-gray-700">
               <li>
                 <NavLink
                   to="/"
                   className="block py-2 px-3 md:p-0 hover:text-orange-500 text-gray-600"
                   aria-current="page"
                 >
-                  Home
+                  HOME
                 </NavLink>
               </li>
 
@@ -149,6 +148,17 @@ const Navbar = () => {
                 >
                   CONTACT
                 </NavLink>
+              </li>
+
+              <li>
+                <a
+                  href=""
+                  target="_blank"
+                  className="hidden md:flex border px-5 py-2 text-xs rounded-full -mt-1.5  text-center  items-center justify-center bg-white text-black hover:bg-black hover:text-white transition-colors duration-300"
+                >
+                  <span className="block">Admin</span>
+                  <span className="block">Panel</span>
+                </a>
               </li>
             </ul>
           </div>

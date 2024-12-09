@@ -61,3 +61,11 @@ body {
     padding: 0.5rem; 
   }
 }
+
+.Toastify__toast-container {
+  pointer-events: none !important; /* ปิดการบล็อก */
+}
+.Toastify__toast {
+  pointer-events: auto !important; /* แต่ยังให้ Toast คลิกได้ */
+}
+
