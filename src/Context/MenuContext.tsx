@@ -1,5 +1,12 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { food_list } from "../assets/assets";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useAuthContext } from "../Context/AuthContext";
+import axios from "axios";
 
 type MenuItem = {
   _id: number;
@@ -21,14 +28,36 @@ const MenuContext = createContext<MenuContextType | undefined>(undefined);
 export const MenuProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(food_list);
+  const [allMenuItems, setAllMenuItems] = useState<MenuItem[]>([]); // เก็บข้อมูลต้นฉบับ
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]); // เก็บข้อมูลที่เปลี่ยนแปลงได้
+  const { token } = useAuthContext();
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/product`
+        );
+        headers: {
+          Authorization: `Bearer ${token}`;
+        }
+
+        setAllMenuItems(response.data.products); // เก็บข้อมูลต้นฉบับ
+        setMenuItems(response.data.products); // ตั้งค่าข้อมูลเริ่มต้น
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMenuItems();
+  }, [token]);
 
   const filterCategory = (categories: string) => {
     const regex = new RegExp(categories, "i");
     setMenuItems(
       categories
-        ? food_list.filter((item) => regex.test(item.category))
-        : food_list
+        ? allMenuItems.filter((item) => regex.test(item.category))
+        : allMenuItems // รีเซ็ตกลับเป็นข้อมูลต้นฉบับ
     );
   };
 
@@ -39,10 +68,7 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({
     } else if (order === "desc") {
       sortedItems = [...menuItems].sort((a, b) => b.price - a.price);
     } else {
-      sortedItems = [...menuItems].sort(
-        (a, b) => a._id - b._id
-
-      );
+      sortedItems = [...allMenuItems]; // เรียงลำดับตามข้อมูลต้นฉบับ
     }
     setMenuItems(sortedItems);
   };

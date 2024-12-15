@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import React, { useState, useRef , useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMenuContext } from "../../Context/MenuContext";
-import { productTranslations } from "../MenuPage/productTranslations";
+import { productTranslations } from "./productTranslations";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MenuPage: React.FC = () => {
@@ -60,18 +60,20 @@ const MenuPage: React.FC = () => {
     );
   };
 
-  const filteredMenuItems = menuItems.filter((item) => {
-    const translatedName = productTranslations[item.name] || item.name;
-    const isSearchMatch =
-      translatedName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.name.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredMenuItems = (Array.isArray(menuItems) ? menuItems : []).filter(
+    (item) => {
+      const translatedName = productTranslations[item.name] || item.name;
+      const isSearchMatch =
+        translatedName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const isWithinPriceRange =
-      (minPrice === "" || item.price >= Number(minPrice)) &&
-      (maxPrice === "" || item.price <= Number(maxPrice));
+      const isWithinPriceRange =
+        (minPrice === "" || item.price >= Number(minPrice)) &&
+        (maxPrice === "" || item.price <= Number(maxPrice));
 
-    return isWithinPriceRange && isSearchMatch;
-  });
+      return isWithinPriceRange && isSearchMatch;
+    }
+  );
 
   const resetFilters = () => {
     setSelectedMainCategory(null);
@@ -100,7 +102,7 @@ const MenuPage: React.FC = () => {
       <motion.aside
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2 }}
         className="sidebar w-full lg:w-1/4 xl:w-1/5 p-3 sm:p-4 md:p-6 bg-white rounded-lg shadow-lg mb-4 lg:mb-0 lg:mr-4 sticky top-4 h-auto lg:h-[calc(95vh-2rem)] overflow-y-auto"
       >
         <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">
@@ -143,7 +145,7 @@ const MenuPage: React.FC = () => {
               >
                 {categoryNames[category]}
               </button>
-              <AnimatePresence mode="wait">
+              <AnimatePresence>
                 {selectedMainCategory === category &&
                   category !== "AllProducts" && (
                     <motion.div
@@ -305,7 +307,7 @@ const MenuPage: React.FC = () => {
         transition={{ delay: 0.08 }}
         className="content w-full lg:w-3/4 xl:w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-3 sm:gap-4 md:gap-6 p-2 sm:p-4 "
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {filteredMenuItems.map((item, index) => (
             <motion.div
               key={item._id}
@@ -324,7 +326,7 @@ const MenuPage: React.FC = () => {
                     <motion.img
                       initial={{ scale: 1.2 }}
                       animate={{ scale: 1 }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.2 }}
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
