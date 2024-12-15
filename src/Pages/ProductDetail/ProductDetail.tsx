@@ -1,20 +1,21 @@
-import Footer from "../../components/Footer";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMenuContext } from "../../Context/MenuContext";
 import { useCartContext } from "../../Context/CartContext";
+import { useAuthContext } from "../../Context/AuthContext"; // Import useAuthContext
 import { productTranslations } from '../../components/MenuPage/productTranslations';
-import { ToastContainer, toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import Footer from "../../components/Footer";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { menuItems } = useMenuContext();
   const { addToCart } = useCartContext();
+  const { token } = useAuthContext(); // Get token from AuthContext
   const [productData, setProductData] = useState<any>(null);
-  const [quantity, setQuantity] = useState<number>(1); 
-
+  const [quantity, setQuantity] = useState<number>(1);
+  
   useEffect(() => {
     const item = menuItems.find((menuItem) => menuItem._id === Number(id));
     if (item) {
@@ -26,6 +27,12 @@ const ProductDetail: React.FC = () => {
     return <p className="text-center mt-10">กำลังโหลดข้อมูลสินค้า...</p>;
 
   const handleAddToCart = () => {
+    if (!token) {
+      toast.error("กรุณาเข้าสู่ระบบก่อนเพิ่มสินค้าลงตะกร้า");
+      return;
+    }
+    
+    // เพิ่มสินค้าในตะกร้าและแสดงข้อความ success ในขั้นตอนเดียว
     addToCart(productData, quantity);
     toast.success(`สินค้าถูกเพิ่มลงตะกร้าเรียบร้อย 🛒`, {
       position: "top-right",
@@ -35,27 +42,28 @@ const ProductDetail: React.FC = () => {
       className: "mt-20 mr-4 pointer-events-auto z-[100] shadow-lg", 
     });
   };
+  
 
   return ( 
     <div className="min-h-screen flex flex-col justify-between ">
       <div className="relative bg-[#065621] text-white py-3 overflow-hidden">
-          <motion.div
-            animate={{
-              x: ["-100%", "100%"],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="flex items-center gap-4 whitespace-nowrap text-xl md:text-2xl font-medium"
-          >
-            <span>🌟 There's always something new and exciting to cook</span>
-            <span>🍳 Discover the joy of cooking with us</span>
-            <span>🥘 Fresh ingredients, amazing flavors</span>
-            <span>👨‍🍳 Cook like a pro at home</span>
-          </motion.div>
-        </div>
+        <motion.div
+          animate={{
+            x: ["-100%", "100%"],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="flex items-center gap-4 whitespace-nowrap text-xl md:text-2xl font-medium"
+        >
+          <span>🌟 There's always something new and exciting to cook</span>
+          <span>🍳 Discover the joy of cooking with us</span>
+          <span>🥘 Fresh ingredients, amazing flavors</span>
+          <span>👨‍🍳 Cook like a pro at home</span>
+        </motion.div>
+      </div>
       <div className="container mx-auto p-6">
       </div>
       <div className="flex flex-col md:flex-row gap-8 container mx-auto p-6">
@@ -67,29 +75,26 @@ const ProductDetail: React.FC = () => {
             className="w-full h-full object-cover rounded-lg shadow-lg"
           />
         </div>
-
         {/* ข้อมูลสินค้า */}
         <div className="flex-1 space-y-4">
           <h1 className="text-4xl font-bold text-gray-800">
-          {productTranslations[productData.name] || productData.name}
+            {productTranslations[productData.name] || productData.name}
           </h1>
           <p className="text-2xl font-semibold text-green-600">
             {productData.price} บาท
           </p>
           <p className="text-gray-700">{productData.description}</p>
-
           <p className="text-gray-900 text-lg font-bold">รายละเอียดของสินค้า</p>
           <p className="text-gray-700">
             <b>วัตถุดิบ :</b> {productData.ingredients}
           </p>
           <p className="text-gray-700">
-          <b>วิธีเก็บรักษา :</b> {productData.storageInstructions}
+            <b>วิธีเก็บรักษา :</b> {productData.storageInstructions}
           </p>
           <p className="text-gray-700">
-          <b>คุณค่าทางโภชนาการ :</b> {productData.nutrition}
+            <b>คุณค่าทางโภชนาการ :</b> {productData.nutrition}
           </p>
           <p className="text-gray-700"><b>ขนาด :</b> {productData.size}</p>
-
           {/* การเลือกจำนวนสินค้า */}
           <div className="flex items-center space-x-4 mt-4">
             <label
@@ -98,7 +103,6 @@ const ProductDetail: React.FC = () => {
             >
               จำนวน:
             </label>
-            {/* ปุ่มลด */}
             <button
               onClick={() =>
                 setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1))
@@ -107,13 +111,9 @@ const ProductDetail: React.FC = () => {
             >
               -
             </button>
-
-            {/* จำนวนสินค้า */}
             <span className="w-20 text-center border border-gray-300 rounded-lg py-2 px-4">
               {quantity}
             </span>
-
-            {/* ปุ่มเพิ่ม */}
             <button
               onClick={() => setQuantity((prevQuantity) => prevQuantity + 1)}
               className="w-10 h-10 flex justify-center items-center bg-gray-200 text-lg font-semibold rounded-lg hover:bg-gray-300 focus:outline-none"
@@ -121,59 +121,54 @@ const ProductDetail: React.FC = () => {
               +
             </button>
           </div>
-
           <button
             onClick={handleAddToCart}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-200 mt-6"
+            disabled={!token}
+            className={`${
+              token 
+                ? "bg-green-600 hover:bg-green-700" 
+                : "bg-gray-400 cursor-not-allowed"
+            } text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-200 mt-6`}
           >
-            เพิ่มลงตะกร้า
+            {token ? "เพิ่มลงตะกร้า" : "กรุณาเข้าสู่ระบบ"}
           </button>
         </div>
       </div>
-
       {/* ข้อมูลเพิ่มเติมและรีวิว */}
       <div className="mt-12 container mx-auto p-6">
         <hr className="my-8 border-gray-300" />
         <h3 className="text-2xl font-semibold text-gray-800 mb-4">
           ข้อมูลเพิ่มเติม
         </h3>
-
-        {/* ข้อมูลเพิ่มเติม */}
         <div
           className="text-gray-600 mb-6"
           dangerouslySetInnerHTML={{ __html: productData.longDescription }}
         />
-        {/* ตัวอย่างรีวิว */}
         <div className="mt-8 mb-12">
           <h3 className="text-2xl font-semibold text-gray-800 mb-4">
             รีวิวจากลูกค้า
           </h3>
           <div className="space-y-6">
-            {/* ตัวอย่างรีวิว */}
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
               <p className="font-semibold">ผู้ใช้: John Doe</p>
-              <p>“สินค้านี้ยอดเยี่ยมมาก! คุณภาพดีและรสชาติถูกปาก”</p>
+              <p>"สินค้านี้ยอดเยี่ยมมาก! คุณภาพดีและรสชาติถูกปาก"</p>
             </div>
-
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
               <p className="font-semibold">ผู้ใช้: Michael Lee</p>
-              <p>“ประทับใจในรสชาติที่กลมกล่อมของสินค้าชิ้นนี้มากครับ”</p>
+              <p>"ประทับใจในรสชาติที่กลมกล่อมของสินค้าชิ้นนี้มากครับ"</p>
             </div>
-
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
               <p className="font-semibold">ผู้ใช้: Emily Chen</p>
-              <p>“สินค้าคุณภาพดีเกินคาด! รสชาติเข้ากันได้ดีกับทุกอย่างเลยค่ะ”</p>
+              <p>"สินค้าคุณภาพดีเกินคาด! รสชาติเข้ากันได้ดีกับทุกอย่างเลยค่ะ"</p>
             </div>
-
             <div className="p-4 bg-gray-100 rounded-lg shadow-md">
               <p className="font-semibold">ผู้ใช้: John Smith</p>
-              <p>“สินค้าเมนูนี้ดีเลิศมาก หอมอร่อย ถูกใจสุด ๆ”</p>
+              <p>"สินค้าเมนูนี้ดีเลิศมาก หอมอร่อย ถูกใจสุด ๆ"</p>
             </div>
           </div>
         </div>
       </div>
       <Footer />
-      <ToastContainer /> 
     </div>
   );
 };

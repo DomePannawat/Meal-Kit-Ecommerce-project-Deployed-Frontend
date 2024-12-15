@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
 interface FormData {
   username: string;
   password: string;
   confirmedPassword: string;
   email: string;
 }
+
 const Signup = () => {
   const [formData, setFormData] = useState<FormData>({
     username: "",
@@ -16,13 +21,16 @@ const Signup = () => {
     email: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
+
   const validateForm = () => {
     let formErrors: Record<string, string> = {};
     if (!formData.username.trim()) {
@@ -30,8 +38,8 @@ const Signup = () => {
     }
     if (!formData.password) {
       formErrors.password = "Password is required.";
-    } else if (formData.password.length < 6) {
-      formErrors.password = "Password must be at least 6 characters.";
+    } else if (formData.password.length < 8) {
+      formErrors.password = "Password must be at least 8 characters.";
     }
     if (!formData.confirmedPassword) {
       formErrors.confirmedPassword = "Please confirm your password.";
@@ -45,39 +53,96 @@ const Signup = () => {
     }
     return formErrors;
   };
-  const handleSignUp = (e: React.FormEvent) => {
+
+  // ฟังก์ชันตรวจสอบ username และ email
+  const checkUserExists = async (username: string, email: string) => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user`);
+      const existingUsers = Array.isArray(response.data) ? response.data : [];
+  
+      const usernameSet = new Set(existingUsers.map((user: { name: string }) => user.name));
+      const emailSet = new Set(existingUsers.map((user: { email: string }) => user.email));
+  
+      const usernameExists = usernameSet.has(username);
+      const emailExists = emailSet.has(email);
+  
+      return { usernameExists, emailExists };
+    } catch (error) {
+      console.error("Error checking username or email:", error);
+      return { usernameExists: false, emailExists: false };
+    }
+  };
+  
+  
+  
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
+  
     if (Object.keys(formErrors).length === 0) {
-      alert(`Sign-up successful! Welcome, ${formData.username}!`);
-      navigate("/login");
+      setLoading(true);
+  
+      // ตรวจสอบ username และ email ก่อนการสมัคร
+      const { usernameExists, emailExists } = await checkUserExists(formData.username, formData.email);
+  
+      // เพิ่มการตรวจสอบ username และ email ซ้ำ
+      if (usernameExists && emailExists) {
+        toast.error("Both username and email are already taken. Please choose another one.");
+        setLoading(false);
+        return;
+      }
+  
+      // กรณีที่ username ซ้ำ
+      if (usernameExists) {
+        toast.error("Username is already taken. Please choose another one.");
+        setLoading(false);
+        return;
+      }
+  
+      // กรณีที่ email ซ้ำ
+      if (emailExists) {
+        toast.error("Email is already registered. Please choose another one.");
+        setLoading(false);
+        return;
+      }
+  
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/user/register`,
+          {
+            name: formData.username,
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+        toast.success("🎉สมัครสำเร็จ! กำลังผ่านไปหน้า Login", { autoClose: 1500 });
+        setTimeout(() => {
+          navigate("/login", { replace: true });
+          window.location.reload(); 
+        }, 3000); 
+      } catch (error: any) {
+        console.error("Sign-up error:", error);
+        
+        // เพิ่มการจัดการข้อผิดพลาดจาก API ที่ตอบกลับผิด
+        if (error.response) {
+          const errorMessage = error.response.data.message || "Something went wrong.";
+          toast.error(errorMessage);
+        } else {
+          toast.error("Network or server error. Please try again later.");
+        }
+      } finally {
+        setLoading(false);
+      }
     }
   };
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-  const formVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
+  
+  
+  
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50">
+      <ToastContainer />
       <motion.div 
         className="relative bg-[#065621] text-white py-4 overflow-hidden"
         initial={{ opacity: 0 }}
@@ -95,47 +160,23 @@ const Signup = () => {
           }}
           className="flex items-center gap-4 whitespace-nowrap text-xl md:text-3xl font-medium"
         >
-          <span>🎉 Welcome To Flavor box 🎉</span>
+          <span>🎉 Welcome To Flavor Box 🎉</span>
           <span>🍳 There's always something new and exciting to cook 🍳</span>
         </motion.div>
       </motion.div>
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="flex-1 flex flex-col items-center px-4 py-8 md:py-12"
-      >
-        <motion.h1
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-[#065621] mb-8 relative"
-        >
+      <div className="flex-1 flex flex-col items-center px-4 py-8 md:py-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#065621] mb-8">
           Create Your Account!
-          <motion.span
-            className="absolute -top-2 -right-8 text-yellow-400"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          >
-            ✨
-          </motion.span>
-        </motion.h1>
-        <motion.form
-          variants={formVariants}
+        </h1>
+        <form
           onSubmit={handleSignUp}
           className="w-full max-w-md bg-white/80 border border-teal-100 rounded-xl shadow-xl p-8 space-y-6"
         >
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-2"
-          >
+          <div className="space-y-2">
             <label htmlFor="username" className="block font-semibold text-teal-700">
               Username
             </label>
-            <motion.input
-              whileFocus={{ scale: 1.02 }}
+            <input
               type="text"
               name="username"
               value={formData.username}
@@ -146,18 +187,12 @@ const Signup = () => {
             {errors.username && (
               <p className="text-red-500 text-sm mt-1">{errors.username}</p>
             )}
-          </motion.div>
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="space-y-2"
-          >
+          </div>
+          <div className="space-y-2">
             <label htmlFor="password" className="block font-semibold text-teal-700">
               Password
             </label>
-            <motion.input
-              whileFocus={{ scale: 1.02 }}
+            <input
               type="password"
               name="password"
               value={formData.password}
@@ -168,18 +203,12 @@ const Signup = () => {
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
-          </motion.div>
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="space-y-2"
-          >
+          </div>
+          <div className="space-y-2">
             <label htmlFor="confirmedPassword" className="block font-semibold text-teal-700">
               Confirm Password
             </label>
-            <motion.input
-              whileFocus={{ scale: 1.02 }}
+            <input
               type="password"
               name="confirmedPassword"
               value={formData.confirmedPassword}
@@ -190,18 +219,12 @@ const Signup = () => {
             {errors.confirmedPassword && (
               <p className="text-red-500 text-sm mt-1">{errors.confirmedPassword}</p>
             )}
-          </motion.div>
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="space-y-2"
-          >
+          </div>
+          <div className="space-y-2">
             <label htmlFor="email" className="block font-semibold text-teal-700">
               Email
             </label>
-            <motion.input
-              whileFocus={{ scale: 1.02 }}
+            <input
               type="email"
               name="email"
               value={formData.email}
@@ -212,21 +235,15 @@ const Signup = () => {
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             )}
-          </motion.div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          </div>
+          <button
+            disabled={loading}
             className="w-full h-12 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
             type="submit"
           >
-            Sign Up
-          </motion.button>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-center mt-6"
-          >
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
+          <div className="text-center mt-6">
             <p className="text-gray-600">
               Already have an account?{" "}
               <Link
@@ -236,11 +253,12 @@ const Signup = () => {
                 Login Here
               </Link>
             </p>
-          </motion.div>
-        </motion.form>
-      </motion.div>
+          </div>
+        </form>
+      </div>
       <Footer />
     </div>
   );
 };
+
 export default Signup;
