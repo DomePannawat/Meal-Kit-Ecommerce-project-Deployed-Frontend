@@ -1,63 +1,99 @@
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useAuthContext } from "../Context/AuthContext"; // นำเข้า useAuthContext
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setToken } = useAuthContext(); // ดึง setToken จาก AuthContext
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [buttonText, setButtonText] = useState("Login");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // ตรวจสอบความถูกต้องของข้อมูล
     if (!email || !password) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วน.");
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน.");
+      setTimeout(() => {
+        setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+      }, 2000);
       return;
     }
 
-    // ตัวเทสล็อคอิน email และ password บรรทัด 24-33 ต้องเอาออกอยู่ละ อันนี้เอาไว้เทสเฉยๆ ฝั่ง font-end
-    if (email === "admin@gmail.com" && password === "12345678") {
-      // Login สำเร็จ
+    try {
       setIsSubmitting(true);
-      setTimeout(() => {
-        navigate("/"); 
-      }, 1000); 
-    } else {
-      setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
-    }
-  };
+      setButtonText("Logging in...");
 
-  /*   สำหรับ back-end ตอนนี้คอมเม้นไว้ก่อน เผื่อจะได้กลับมาใช้
-  try {
-      setIsSubmitting(true);
       // ส่งข้อมูล email และ password ไปยัง back-end ด้วย axios
-      const response = await axios.post("http://your-api-endpoint/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/login`, // ใช้ VITE_BACKEND_URL
+        { email, password }
+      );
 
       // ถ้า response.status === 200 หรือสำเร็จ
       if (response.data.success) {
-        // Login สำเร็จ
+        const { token } = response.data; // รับ token จาก response
+        localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
+
+        // บันทึก token ใน Context ผ่าน setToken
+        setToken(token);
+
+        toast.success("🎉เข้าสู่ระบบสำเร็จ! กำลังเข้าสู่ระบบ", {
+          autoClose: 1500,
+        });
         setTimeout(() => {
-          navigate("/"); // หลังจากล็อกอินเสร็จให้ไปที่หน้า Home
-        }, 1000);
+          // รีเฟรชหน้าและไปยังหน้า Home
+          navigate("/", { replace: true }); // เปลี่ยนหน้าไปยัง Home ก่อน
+          window.location.reload(); // รีเฟรชหน้า Home ให้ใหม่
+        }, 3000);
       } else {
         setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
+        toast.error("อีเมล์หรือรหัสผ่านไม่ถูกต้อง", {
+          position: "top-right",
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        setTimeout(() => {
+          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+        }, 3000);
       }
     } catch (error) {
-      setError("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+      // ตรวจสอบว่ามี error.response หรือไม่
+      if (axios.isAxiosError(error) && error.response) {
+        setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
+        toast.error("อีเมล์หรือรหัสผ่านไม่ถูกต้อง" , {
+          position: "top-right",
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        setTimeout(() => {
+          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+        }, 3000);
+      } else {
+        setError("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+        toast.error("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+        setTimeout(() => {
+          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+        }, 3000);
+      }
     } finally {
       setIsSubmitting(false);
+      setTimeout(() => {
+        setButtonText("Login"); // เปลี่ยนข้อความกลับเป็น Login หลังจาก 3 วินาที
+      }, 3000); // 3 วินาที
     }
   };
-  */
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50 ">
@@ -100,9 +136,7 @@ const Login = () => {
         </motion.div>
 
         {/* Login Form Container */}
-        <motion.div
-          className="flex justify-center px-4 sm:px-6 lg:px-8"
-        >
+        <motion.div className="flex justify-center px-4 sm:px-6 lg:px-8">
           <motion.form
             className="flex flex-col justify-center items-center bg-white/80  border border-teal-100 rounded-2xl shadow-xl p-8 w-full max-w-md mt-8 md:mt-12"
             onSubmit={handleSubmit}
@@ -113,7 +147,10 @@ const Login = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <label htmlFor="email" className="block font-semibold text-teal-700">
+              <label
+                htmlFor="email"
+                className="block font-semibold text-teal-700"
+              >
                 Email
               </label>
               <motion.input
@@ -132,7 +169,10 @@ const Login = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <label htmlFor="password" className="block font-semibold text-teal-700">
+              <label
+                htmlFor="password"
+                className="block font-semibold text-teal-700"
+              >
                 Password
               </label>
               <motion.input
@@ -164,7 +204,7 @@ const Login = () => {
               className="mt-8 w-full max-w-[200px] h-12 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Logging in..." : "Login"}
+              {buttonText}
             </motion.button>
 
             {/* Create Account Link */}
@@ -178,16 +218,17 @@ const Login = () => {
                 Don't have an account?{" "}
                 <Link
                   to="/signup"
-                  className="text-teal-600 hover:text-teal-700 font-semibold hover:underline transition-colors"
+                  className="text-teal-600 hover:text-teal-800 font-semibold"
                 >
-                  Create account
+                  Sign Up
                 </Link>
               </p>
             </motion.div>
-
           </motion.form>
         </motion.div>
       </div>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

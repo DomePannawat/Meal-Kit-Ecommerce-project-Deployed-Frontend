@@ -10,7 +10,8 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(menuItems.length / itemsPerPage);
-  const [shuffledItems, setShuffledItems] = useState(menuItems);
+  const [shuffledItems, setShuffledItems] = useState<typeof menuItems>([]);
+
   const shuffleMenuItems = () => {
     const shuffled = [...menuItems]
       .map((item) => ({ ...item, random: Math.random() }))
@@ -18,18 +19,26 @@ const Home = () => {
       .map(({ random, ...rest }) => rest);
     setShuffledItems(shuffled);
   };
+
   useEffect(() => {
-    shuffleMenuItems();
-  }, []);
-  const displayedItems = shuffledItems.slice(
-    currentIndex * itemsPerPage,
-    currentIndex * itemsPerPage + itemsPerPage
-  );
+    if (Array.isArray(menuItems)) {
+      shuffleMenuItems();
+    }
+  }, [menuItems]);
+
+  const displayedItems = Array.isArray(shuffledItems)
+    ? shuffledItems.slice(
+        currentIndex * itemsPerPage,
+        currentIndex * itemsPerPage + itemsPerPage
+      )
+    : [];
+
   const handleNext = () => {
     if (currentIndex < totalPages - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
+
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
