@@ -5,6 +5,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
+import { useAuthContext } from "./AuthContext";
 
 type CartItem = {
   _id: number;
@@ -24,7 +25,7 @@ type CartContextType = {
   totalAmount: number;
   userInfo: { name: string; address: string };
   updateUserInfo: (name: string, address: string) => void;
-  clearUserInfo: () => void; 
+  clearUserInfo: () => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -40,6 +41,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     name: "",
     address: "",
   });
+
+  const { token } = useAuthContext(); // ดึง token จาก AuthContext
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem("cartItems");
@@ -58,7 +61,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (product: any, quantity: number) => {
-    const existingProductIndex = cartItems.findIndex(item => item._id === product._id);
+    if (!token) {
+      console.error("User is not authenticated");
+      return;
+    }
+
+    const existingProductIndex = cartItems.findIndex(
+      (item) => item._id === product._id
+    );
     if (existingProductIndex >= 0) {
       const updatedCartItems = [...cartItems];
       updatedCartItems[existingProductIndex].quantity += quantity;
@@ -66,6 +76,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     } else {
       setCartItems([...cartItems, { ...product, quantity }]);
     }
+
+    // ลบได้ เอาไว้เช็คว่า token กับสินค้า ส่งขึ้นมาที่ตระกร้าอะป่าว
+    console.log("Token:", token, "Added product:", product);
   };
 
   const getCartItemCount = () => {
@@ -90,14 +103,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setTotalAmount(0);
   };
 
-  // ฟังก์ชันสำหรับอัปเดตข้อมูลผู้ใช้
   const updateUserInfo = (name: string, address: string) => {
     setUserInfo({ name, address });
   };
 
-  // ฟังก์ชันลบข้อมูลผู้ใช้
   const clearUserInfo = () => {
-    setUserInfo({ name: "", address: "" }); // รีเซ็ตข้อมูลผู้ใช้ให้เป็นค่าว่าง
+    setUserInfo({ name: "", address: "" });
   };
 
   return (
@@ -112,7 +123,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         totalAmount,
         userInfo,
         updateUserInfo,
-        clearUserInfo, 
+        clearUserInfo,
       }}
     >
       {children}
