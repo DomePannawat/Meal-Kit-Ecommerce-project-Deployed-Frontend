@@ -48,11 +48,11 @@ const Order = () => {
             },
           }
         );
-        setOrderItems(response.data.orders);
+        // setOrderItems(response.data.orders);
 
         // ตรวจสอบข้อมูลก่อนเซ็ต
-        if (response.data?.order) {
-          setOrderItems(response.data.orders);
+        if (response.data?.orders) {
+          setOrderItems(response.data.orders.reverse());
         } else {
           console.error("No order data returned from API");
         }
@@ -183,7 +183,7 @@ const Order = () => {
                 <div className="overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   <div className="p-6">
                     <div className="text-lg font-semibold text-gray-900 mb-3">
-                      วันที่สั่งซื้อ: {" "}
+                      วันที่สั่งซื้อ:{" "}
                       <span className="text-green-600">
                         {formatDate(order.date)}
                       </span>
