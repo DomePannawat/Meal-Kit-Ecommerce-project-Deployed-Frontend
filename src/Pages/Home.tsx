@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useMenuContext } from "../Context/MenuContext";
 import { productTranslations } from "../components/MenuPage/productTranslations";
 import { motion } from "framer-motion";
+import { toast } from 'react-toastify';
 
 const Home = () => {
   const { menuItems = [] } = useMenuContext();
@@ -45,6 +46,22 @@ const Home = () => {
     }
   };
 
+    const [email, setEmail] = useState<string>('');
+  
+    const handleSubscribe = (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      
+      if (!email.includes('@')) {
+        toast.error('กรุณากรอกอีเมล์ให้ถูกต้อง');
+      } else {
+        toast.success('สมัครสมาชิกเรียบร้อยแล้ว!',{
+          autoClose: 1500,
+        });
+        setEmail('');
+      }
+    };
+
   return (
     <div>
       <div className="min-h-screen flex flex-col justify-between bg-gradient-to-b from-green-50 to-white">
@@ -55,7 +72,7 @@ const Home = () => {
               x: ["-100%", "100%"],
             }}
             transition={{
-              duration: 20,
+              duration: 40,
               repeat: Infinity,
               ease: "linear",
             }}
@@ -241,38 +258,43 @@ const Home = () => {
         <hr />
         {/* Subscribe now & get 10% off */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mt-10 mb-20"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-center mt-10 mb-20"
+    >
+      <p className="text-2xl font-medium text-gray-700">
+        Subscribe now & get 10% off
+      </p>
+      <p className="text-gray-400 mt-3">
+        Join us today and enjoy 10% off your first purchase.
+      </p>
+      <form
+        onSubmit={handleSubscribe}
+        className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 rounded-xl"
+      >
+        <motion.input
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="w-full sm:flex-1 outline-none rounded-l-xl"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          required
+        />
+        <motion.button
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          type="submit"
+          className="bg-green-500 hover:bg-green-600 text-white text-xs px-10 py-4 rounded-r-xl"
         >
-          <p className="text-2xl font-medium text-gray-700">
-            Subscribe now & get 10% off
-          </p>
-          <p className="text-gray-400 mt-3">
-            Join us today and enjoy 10% off your first purchase.
-          </p>
-          <form className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 rounded-xl">
-            <motion.input
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="w-full sm:flex-1 outline-none rounded-l-xl"
-              type="email"
-              placeholder="Enter your email"
-              required
-            />
-            <motion.button
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              type="submit"
-              className="bg-green-500 hover:bg-green-600 text-white text-xs px-10 py-4 rounded-r-xl"
-            >
-              SUBSCRIBE
-            </motion.button>
-          </form>
-        </motion.div>
+          SUBSCRIBE
+        </motion.button>
+      </form>
+    </motion.div>
 
         <Footer />
       </div>

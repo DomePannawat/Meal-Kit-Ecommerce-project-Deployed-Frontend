@@ -105,7 +105,7 @@ const Login = () => {
             x: ["-100%", "100%"],
           }}
           transition={{
-            duration: 20,
+            duration: 40,
             repeat: Infinity,
             ease: "linear",
           }}
