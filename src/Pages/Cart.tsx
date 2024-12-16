@@ -28,6 +28,7 @@ const CartPage: React.FC = () => {
 
   return (
     <div>
+      <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50 ">
       <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
         <h1 className="font-medium typing-text">
           There's always something new and exciting to cook.
@@ -129,6 +130,7 @@ const CartPage: React.FC = () => {
         </div>
       </div>
       <Footer />
+      </div>
     </div>
   );
 };
