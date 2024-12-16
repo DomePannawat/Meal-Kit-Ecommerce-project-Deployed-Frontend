@@ -16,7 +16,6 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    console.log("authToken after removal:", localStorage.getItem("authToken"));
     window.location.reload();
   };
 

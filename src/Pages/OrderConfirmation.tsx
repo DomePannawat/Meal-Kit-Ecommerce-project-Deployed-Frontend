@@ -44,7 +44,6 @@ const OrderConfirmation = () => {
 
   useEffect(() => {
     const fetchOrderItems = async () => {
-      console.log(id);
       try {
         const _id = id;
         const response = await axios.post(
@@ -56,16 +55,11 @@ const OrderConfirmation = () => {
             },
           }
         );
-        // console.log("this is from orderConfirm", _id);
-        // console.log("fetch", response.data.orderProduct);
-        // setOrderData(response.data.orderProduct); // orders เป็น Array ที่ได้จาก Backend
-        // console.log("this is orderData:", orderData);
 
         // ตรวจสอบข้อมูลก่อนเซ็ต
         if (response.data?.order) {
           setOrderData(response.data.orderProduct); // เซ็ตเฉพาะข้อมูล `order`
           setUserId(response.data.userId);
-          console.log("this is userId:", userId);
         } else {
           console.error("No order data returned from API");
         }

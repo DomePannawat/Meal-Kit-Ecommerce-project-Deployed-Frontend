@@ -85,12 +85,15 @@ const MenuPage: React.FC = () => {
     setSortPrice("default");
   };
 
+  
+
   useEffect(() => {
     // เมื่อ minPrice เปลี่ยนแปลง, set maxPrice เป็น minPrice + 5
     if (Number(minPrice) > 0) {
       setMaxPrice((Number(minPrice) + 20).toString());
     }
   }, [minPrice]);
+
 
   return (
     <motion.div
@@ -110,20 +113,31 @@ const MenuPage: React.FC = () => {
         </h2>
 
         {/* Search Bar */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="mb-4 sm:mb-6"
-        >
-          <input
-            type="text"
-            placeholder="ค้นหาชื่อเมนู..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full p-2 sm:p-3 text-sm sm:text-base border border-gray-200 rounded-lg 
-                     focus:ring-2  focus:border-transparent transition-all duration-300 bg-gray-50"
-          />
-        </motion.div>
+<motion.div
+  initial={{ y: 20, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  className="mb-4 sm:mb-6"
+>
+  <input
+    type="text"
+    placeholder="ค้นหาชื่อเมนู..."
+    value={searchQuery}
+    onChange={(e) => {
+      const value = e.target.value;
+      
+      // กรองการเริ่มต้นด้วย space bar หรือเว้นว่าง 2-3 ครั้ง
+      if (/^[\s]+/.test(value)) return;
+
+      // กรองสัญลักษณ์พิเศษ (ตัวอักษรและตัวเลขที่ไม่ใช่คำ)
+      const filteredValue = value.replace(/[^ก-๙a-zA-Z0-9\s]/g, "");
+      
+      setSearchQuery(filteredValue);
+    }}
+    className="w-full p-2 sm:p-3 text-sm sm:text-base border border-gray-200 rounded-lg 
+               focus:ring-2 focus:border-transparent transition-all duration-300 bg-gray-50"
+  />
+</motion.div>
+
 
         {/* Main Categories */}
         <div className="space-y-3 sm:space-y-4">

@@ -77,8 +77,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setCartItems([...cartItems, { ...product, quantity }]);
     }
 
-    // ลบได้ เอาไว้เช็คว่า token กับสินค้า ส่งขึ้นมาที่ตระกร้าอะป่าว
-    console.log("Token:", token, "Added product:", product);
   };
 
   const getCartItemCount = () => {

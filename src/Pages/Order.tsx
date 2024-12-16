@@ -30,13 +30,13 @@ const formatDate = (dateString: Date) => {
 const Order = () => {
   const { menuItems } = useMenuContext();
   const [orderItems, setOrderItems] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // เพิ่มสถานะโหลดข้อมูล
   const { id } = useParams<{ id: string }>();
   const { token } = useAuthContext();
 
   // for fetching data from backend
   useEffect(() => {
     const fetchOrderItems = async () => {
-      console.log(id);
       try {
         const _id = id;
         const response = await axios.post(
@@ -48,19 +48,18 @@ const Order = () => {
             },
           }
         );
-        // console.log("this is from orderConfirm", _id);
-        console.log("fetch", response.data.orders);
-        setOrderItems(response.data.orders); // orders เป็น Array ที่ได้จาก Backend
-        console.log("this is orderData:", orderItems);
+        setOrderItems(response.data.orders);
 
         // ตรวจสอบข้อมูลก่อนเซ็ต
         if (response.data?.order) {
-          setOrderItems(response.data.orders); // เซ็ตเฉพาะข้อมูล `order`
+          setOrderItems(response.data.orders);
         } else {
           console.error("No order data returned from API");
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        setTimeout(() => setIsLoading(false), 500);
       }
     };
 
@@ -128,68 +127,27 @@ const Order = () => {
             </button>
           </div>
 
-          {orderItems.map((order, index) => (
+          {isLoading ? (
             <motion.div
-              key={order._id || index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="transition-transform duration-300 mb-10"
+              className="text-center py-16 bg-white rounded-xl shadow-sm"
             >
-              <div className="overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <div className="p-6">
-                  <div className="text-lg font-semibold text-gray-900 mb-3">
-                    วันที่สั่งซื้อ:{" "}
-                    <span className="text-green-600">
-                      {formatDate(order.date)}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {order.orderProduct.map(
-                      (product: OrderProduct, idx: number) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ scale: 0.9 }}
-                          whileHover={{ scale: 1 }}
-                          transition={{ duration: 0.3 }}
-                          className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg"
-                        >
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-16 h-16 object-cover rounded-md shadow-md"
-                          />
-                          <div>
-                            <h4 className="font-medium text-gray-700">
-                              {productTranslations[product.name] ||
-                                product.name}
-                            </h4>
-                            <p className="text-sm text-gray-500">
-                              จำนวน: {product.quantity}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              ราคา: {product.price} บาท
-                            </p>
-                          </div>
-                        </motion.div>
-                      )
-                    )}
-                  </div>
-                  <div className="mt-4 text-right">
-                    <p className="font-semibold text-lg text-green-600">
-                      รวมทั้งหมด: {order.totalPrice} บาท
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      สถานนะการจัดส่ง: {order.status}
-                    </p>
-                  </div>
-                </div>
+              <div className="mx-auto h-16 w-16 text-gray-300">
+                <motion.span
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-4xl"
+                >
+                  ⏳
+                </motion.span>
               </div>
+              <h3 className="mt-4 text-lg font-medium text-gray-900">
+                Loading orders...
+              </h3>
             </motion.div>
-          ))}
-
-          {orderItems.length === 0 && (
+          ) : orderItems.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -212,6 +170,67 @@ const Order = () => {
                 When you place orders, they will appear here
               </p>
             </motion.div>
+          ) : (
+            orderItems.map((order, index) => (
+              <motion.div
+                key={order._id || index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+                className="transition-transform duration-300 mb-10"
+              >
+                <div className="overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                  <div className="p-6">
+                    <div className="text-lg font-semibold text-gray-900 mb-3">
+                      วันที่สั่งซื้อ: {" "}
+                      <span className="text-green-600">
+                        {formatDate(order.date)}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {order.orderProduct.map(
+                        (product: OrderProduct, idx: number) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ scale: 0.9 }}
+                            whileHover={{ scale: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg"
+                          >
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-16 h-16 object-cover rounded-md shadow-md"
+                            />
+                            <div>
+                              <h4 className="font-medium text-gray-700">
+                                {productTranslations[product.name] ||
+                                  product.name}
+                              </h4>
+                              <p className="text-sm text-gray-500">
+                                จำนวน: {product.quantity}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                ราคา: {product.price} บาท
+                              </p>
+                            </div>
+                          </motion.div>
+                        )
+                      )}
+                    </div>
+                    <div className="mt-4 text-right">
+                      <p className="font-semibold text-lg text-green-600">
+                        รวมทั้งหมด: {order.totalPrice} บาท
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        สถานะการจัดส่ง: {order.status}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))
           )}
         </motion.div>
       </div>

@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useAuthContext } from "../Context/AuthContext"; // นำเข้า useAuthContext
+import { useAuthContext } from "../Context/AuthContext"; 
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setToken } = useAuthContext(); // ดึง setToken จาก AuthContext
+  const { setToken } = useAuthContext(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,12 +19,14 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ตรวจสอบความถูกต้องของข้อมูล
+   
     if (!email || !password) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วน.");
-      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน.");
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน.", {
+        autoClose: 1500,
+      });
       setTimeout(() => {
-        setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+        setError(""); 
       }, 2000);
       return;
     }
@@ -33,27 +35,27 @@ const Login = () => {
       setIsSubmitting(true);
       setButtonText("Logging in...");
 
-      // ส่งข้อมูล email และ password ไปยัง back-end ด้วย axios
+      
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/user/login`, // ใช้ VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL}/user/login`, 
         { email, password }
       );
 
-      // ถ้า response.status === 200 หรือสำเร็จ
+      
       if (response.data.success) {
-        const { token } = response.data; // รับ token จาก response
-        localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
+        const { token } = response.data; 
+        localStorage.setItem("authToken", token); 
 
-        // บันทึก token ใน Context ผ่าน setToken
+        
         setToken(token);
 
         toast.success("🎉เข้าสู่ระบบสำเร็จ! กำลังเข้าสู่ระบบ", {
           autoClose: 1500,
         });
         setTimeout(() => {
-          // รีเฟรชหน้าและไปยังหน้า Home
-          navigate("/", { replace: true }); // เปลี่ยนหน้าไปยัง Home ก่อน
-          window.location.reload(); // รีเฟรชหน้า Home ให้ใหม่
+          
+          navigate("/", { replace: true }); 
+          window.location.reload(); 
         }, 3000);
       } else {
         setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
@@ -64,11 +66,11 @@ const Login = () => {
           pauseOnHover: true,
         });
         setTimeout(() => {
-          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+          setError(""); 
         }, 3000);
       }
     } catch (error) {
-      // ตรวจสอบว่ามี error.response หรือไม่
+      
       if (axios.isAxiosError(error) && error.response) {
         setError("อีเมล์หรือรหัสผ่านไม่ถูกต้อง");
         toast.error("อีเมล์หรือรหัสผ่านไม่ถูกต้อง" , {
@@ -78,20 +80,20 @@ const Login = () => {
           pauseOnHover: true,
         });
         setTimeout(() => {
-          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+          setError(""); 
         }, 3000);
       } else {
         setError("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
         toast.error("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
         setTimeout(() => {
-          setError(""); // ลบข้อความ error หลังจาก 3 วินาที
+          setError(""); 
         }, 3000);
       }
     } finally {
       setIsSubmitting(false);
       setTimeout(() => {
-        setButtonText("Login"); // เปลี่ยนข้อความกลับเป็น Login หลังจาก 3 วินาที
-      }, 3000); // 3 วินาที
+        setButtonText("Login"); 
+      }, 3000); 
     }
   };
 
