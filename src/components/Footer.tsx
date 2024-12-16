@@ -45,13 +45,13 @@ const Footer = () => {
                   <p>Available in Thailand</p>
                 </li>
                 <li>
-                  <NavLink to="" className="hover:underline">Ad Preferences</NavLink>
+                  Ad Preferences
                 </li>
                 <li>
-                  <NavLink to="" className="hover:underline">Privacy</NavLink>
+                  <NavLink to="https://docs.google.com/document/d/1YeCpLYFGj-kyRK-yixOjlXfuKVCKTCyhLre2JPF1GuI/edit?usp=sharing" target="_blank"  className="hover:underline">Privacy</NavLink>
                 </li>
                 <li>
-                  <NavLink to="" className="hover:underline">Terms</NavLink>
+                  <NavLink to="/about" className="hover:underline">Terms</NavLink>
                 </li>
               </ul>
             </div>
@@ -59,9 +59,9 @@ const Footer = () => {
             <div>
               <h3 className="text-lg font-bold mb-4">Follow Us</h3>
               <ul className="flex space-x-4">
-                <li><NavLink to="" aria-label="Facebook" className="hover:underline">Facebook</NavLink></li>
-                <li><NavLink to="" aria-label="Instagram" className="hover:underline">Instagram</NavLink></li>
-                <li><NavLink to="" aria-label="Twitter" className="hover:underline">Twitter</NavLink></li>
+                <li><NavLink to="https://www.facebook.com/" target="_blank" aria-label="Facebook" className="hover:underline">Facebook</NavLink></li>
+                <li><NavLink to="https://www.instagram.com/" target="_blank" aria-label="Instagram" className="hover:underline">Instagram</NavLink></li>
+                <li><NavLink to="https://x.com/?lang=th" target="_blank" aria-label="Twitter" className="hover:underline">Twitter</NavLink></li>
               </ul>
             </div>
           </div>
