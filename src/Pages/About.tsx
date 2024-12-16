@@ -45,7 +45,7 @@ const About: React.FC = () => {
       <div className="relative bg-[#065621] text-white py-3 overflow-hidden">
         <motion.div
           animate={{ x: ["-100%", "100%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           className="flex items-center gap-4 whitespace-nowrap text-xl md:text-2xl font-medium"
         >
           <span>🌟 There's always something new and exciting to cook</span>
