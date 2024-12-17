@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# Meal-Kit-Ecommerce-Project (FLAVOR BOX)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**FLAVOR BOX** is an e-commerce platform specializing in meal kits, offering a variety of menus for easy and convenient home cooking. We are dedicated to providing an enjoyable and delicious cooking experience for our customers through high-quality ingredients and meticulously crafted recipes.
 
-Currently, two official plugins are available:
+## Key Features
+- **Variety of Menus**: Choose from a wide range of Meal-Kit or PreparedAndReady options curated for your preferences.
+- **Easy Ordering System**: A straightforward ordering process designed to be user-friendly.
+- **Product Filtering System**: Fast and efficient filtering to view different menu categories, designed with ease of use in mind.
+- **Payment Options**: Supports payment via QR-PromptPay and Cash on Delivery for customer convenience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+- **Front end**: TypeScript, React, HTML, TailwindCSS, Motion
+- **Back end**: JavaScript, Node.js, Express
+- **Database**: MongoDB
+- **Payment**: QR-Code.React
 
-## Expanding the ESLint configuration
+## Usage
+You can access the platform at [FLAVOR BOX](https://meal-kit-ecommerce-project-deployed-frontend.vercel.app)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Development
+To run the project locally, follow the steps below:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository to your local machine:
+    ```bash
+    git clone https://github.com/Quantum-Chronicle-Saurus/Meal-Kit-Ecommerce-project.git
+    ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+3. Start the server:
+    ```bash
+    npm run dev
+    ```
