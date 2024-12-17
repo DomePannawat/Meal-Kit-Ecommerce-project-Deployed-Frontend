@@ -220,11 +220,25 @@ const Order = () => {
                       )}
                     </div>
                     <div className="mt-4 text-right">
+                    <div className="flex justify-end mb-4">
+  <div className="flex items-center">
+    <p className="text-sm text-gray-500">สถานะการจัดส่ง :</p>
+    <div
+      className={`px-4 py-1 ml-2 rounded-lg shadow-md transition duration-300 ${
+        order.status === "Canceled" ? "bg-red-600 text-white" :
+        order.status === "Shipped" ? "bg-green-600 text-white" :
+        order.status === "Pending" ? "bg-orange-500 text-white" :
+        order.status === "Order Placed" ? "bg-gray-500 text-white" :
+        "bg-gray-200 text-gray-800" // สีเริ่มต้น ถ้าไม่ตรงเงื่อนไข
+      }`}
+    >
+      <p className="font-semibold">{order.status}</p>
+    </div>
+  </div>
+</div>
+
                       <p className="font-semibold text-lg text-green-600">
                         รวมทั้งหมด: {order.totalPrice} บาท
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        สถานะการจัดส่ง: {order.status}
                       </p>
                     </div>
                   </div>
