@@ -1,3 +1,5 @@
+import { motion, AnimatePresence } from "framer-motion";
+import { QRCodeSVG } from "qrcode.react";
 import React, { useState } from "react";
 import { useCartContext } from "../Context/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -5,9 +7,11 @@ import Footer from "../components/Footer";
 import { useAuthContext } from "../Context/AuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 const Delivery = () => {
   const { cartItems, updateUserInfo, clearCart } = useCartContext();
-  const { token } = useAuthContext(); // ดึง token จาก AuthContext
+  const { token } = useAuthContext();
+  const [showQR, setShowQR] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +27,8 @@ const Delivery = () => {
     other: "",
   });
   const navigate = useNavigate();
+
+    
 
   const calculateTotalPrice = () => {
     return cartItems.reduce(
@@ -41,28 +47,20 @@ const Delivery = () => {
       case "firstName":
       case "lastName":
       case "country":
-        // ตรวจสอบให้ใส่ได้แค่ตัวอักษรภาษาอังกฤษและภาษาไทย (ไม่มีตัวเลขและสัญลักษณ์พิเศษ)
         validatedValue = value.replace(/[^a-zA-Z\u0E00-\u0E7F\s]/g, "");
         break;
 
       case "email":
-        // ตรวจสอบให้เป็นอีเมลที่มี @
         validatedValue = value.replace(/[^a-zA-Z0-9@._-]/g, "");
-        // เช็คว่าอีเมลมี @ หรือไม่
         if (!validatedValue.includes("@")) {
           newFormErrors.email = "กรุณากรอกอีเมลให้ถูกต้อง";
         } else {
-          newFormErrors.email = ""; // ถ้าอีเมลถูกต้องก็ลบข้อความ error
+          newFormErrors.email = "";
         }
         break;
 
       case "zipcode":
-        // ตรวจสอบให้เป็นตัวเลขเท่านั้น
-        validatedValue = value.replace(/[^0-9]/g, "");
-        break;
-
       case "phone":
-        // ตรวจสอบให้เป็นตัวเลขเท่านั้น
         validatedValue = value.replace(/[^0-9]/g, "");
         break;
 
@@ -74,7 +72,7 @@ const Delivery = () => {
       ...formData,
       [name]: validatedValue,
     });
-    setFormErrors(newFormErrors); // อัปเดต error ของฟอร์ม
+    setFormErrors(newFormErrors);
   };
 
   const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,32 +111,77 @@ const Delivery = () => {
         }
       );
 
-      clearCart();
+      if (paymentMethod === "QR-Payment") {
+        setShowQR(true);
 
-      if (paymentMethod === "cod") {
-        // รอ state cartItems อัปเดตสำเร็จ ก่อน navigate ในกรณี COD
         setTimeout(() => {
-          navigate(`/orderConfirmation/${response.data.order}`); //api ไปหา stripe
-        }, 0); // หรือปรับเวลาถ้าจำเป็น
+          clearCart();
+          navigate(`/orderConfirmation/${response.data.order}`);
+        }, 15000);
+      } else if (paymentMethod === "cod") {
+        clearCart();
+        setTimeout(() => {
+          navigate(`/orderConfirmation/${response.data.order}`);
+        }, 0);
       }
     } catch (error) {
       console.error("Error placing order:", error);
+      toast.error("เกิดข้อผิดพลาดในการสั่งซื้อ");
     }
   };
 
-  // เช็คว่า formData ทุกตัวถูกกรอกครบหรือไม่ และมีการเลือกวิธีการชำระเงิน
   const isFormComplete = Object.values(formData).every((value) => value !== "");
   const isPaymentSelected = paymentMethod !== "";
 
+
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50 ">
-      <div className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl">
+    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-br from-teal-50 via-white to-teal-50">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="bg-[#065621] text-white p-2 text-center sm:text-base md:text-2xl lg:text-2xl"
+      >
         <h1 className="font-medium typing-text">
           There's always something new and exciting to cook.
         </h1>
-      </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showQR && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          >
+            <motion.div
+              className="bg-white p-8 rounded-lg shadow-xl"
+              initial={{ y: -50 }}
+              animate={{ y: 0 }}
+            >
+              <h3 className="text-xl font-bold mb-4 text-center">
+                สแกน QR Code เพื่อชำระเงิน
+              </h3>
+              <QRCodeSVG
+                value={`00020101021129370016A000000677010111011300660000000005802TH530376463048956`}
+                size={256}
+                className="mx-auto"
+              />
+              <p className="mt-4 text-center text-gray-600">
+                กำลังรอการชำระเงิน...
+              </p>
+              
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="container mx-auto p-6 mb-32 mt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
           {/* Delivery Information */}
           <div>
             <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-2">
@@ -235,7 +278,11 @@ const Delivery = () => {
 
           {/* Cart Totals */}
           <div>
-            <div className="w-full max-w-md bg-gray-100 p-6 rounded-md shadow-lg lg:mt-10 mx-auto">
+            <motion.div
+              initial={{ x: 20 }}
+              animate={{ x: 0 }}
+              className="w-full max-w-md bg-gray-100 p-6 rounded-md shadow-lg lg:mt-10 mx-auto"
+            >
               <h2 className="text-xl font-bold mb-4 border-b pb-2">
                 Cart Totals
               </h2>
@@ -257,38 +304,47 @@ const Delivery = () => {
               {/* Payment Method */}
               <h3 className="mt-6 text-lg font-semibold">Payment Method</h3>
               <div className="flex items-center mt-4 gap-4">
-                {/* <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="flex justify-center w-full border border-gray-300 p-2 rounded-md"
+                >
                   <label className="flex items-center">
                     <input
                       type="radio"
                       name="paymentMethod"
-                      value="stripe"
+                      value="QR-Payment"
                       onChange={handlePaymentChange}
                       className="mr-2"
                     />
-                    <span>
-                      <img className="h-8 mx-4" src="/visa_master_logo.png" />
+                    <span className="h-12 text-center flex justify-center items-center">
+                      {/* QR Payment */} <img src="/qrpayment.png"  />
                     </span>
                   </label>
-                </div> */}
-                <div className="flex justify-center w-full border border-gray-300 p-2 rounded-md ">
+                </motion.div>
+
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="flex justify-center w-full border border-gray-300 p-2 rounded-md "
+                >
                   <label className="flex items-center">
                     <input
                       type="radio"
                       name="paymentMethod"
                       value="cod"
                       onChange={handlePaymentChange}
-                      className="mr-2 "
+                      className="mr-2"
                     />
-                    <span className="h-8 mx-4 text-center flex justify-center items-center">
+                    <span className="h-12 mx-4 text-center flex justify-center items-center">
                       Cash on Delivery
                     </span>
                   </label>
-                </div>
+                </motion.div>
               </div>
 
               {/* Submit Button */}
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 type="submit"
                 className={`block w-full text-center bg-green-600 text-white py-2 mt-6 rounded-lg hover:bg-green-700 ${
                   !isFormComplete || !isPaymentSelected
@@ -299,10 +355,10 @@ const Delivery = () => {
                 onClick={handleSubmit}
               >
                 Order Confirmation
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
       <Footer />
     </div>

@@ -177,7 +177,7 @@ const Navbar = () => {
 
               <li>
                 <a
-                  href="https://test-admin-frontend-eight.vercel.app"
+                  href="https://meal-kits-admin-vercel.vercel.app"
                   target="_blank"
                   className="hidden md:flex border px-5 py-2 text-xs rounded-full -mt-1.5  text-center  items-center justify-center bg-white text-black hover:bg-black hover:text-white transition-colors duration-300"
                 >
